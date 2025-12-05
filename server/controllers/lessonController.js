@@ -1,4 +1,4 @@
-import Lesson from "../models/Lesson.js";
+import Lesson from "../models/lesson.js";
 import Section from "../models/section.js";
 import Course from "../models/course.js";
 
