@@ -8,6 +8,7 @@ import courseRoutes from './routes/courseRoute.js';
 import sectionRoutere from './routes/sectionRoutes.js';
 import lesssonRoutes from './routes/lessonRoutes.js';
 import videoRoutes from './routes/videoRoutes.js';
+import enrollmentRoutes from './routes/enrollRoutes.js';
 
 import cors from 'cors'
 
@@ -23,6 +24,8 @@ app.listen(process.env.PORT || 5000, () => {
 
 
 // api endpints 
+
+
 // auth endpoints
 app.use('/api/auth', authRoutes);
 // course endpoints 
@@ -31,8 +34,6 @@ app.use('/api/course', courseRoutes);
 app.use('/api/sections', sectionRoutere);
 // lesson endpoints
 app.use('/api/lessons', lesssonRoutes);
-// video endpoints
-app.use('/api/videos', videoRoutes);
 
 async function connectDB() {
   try {
