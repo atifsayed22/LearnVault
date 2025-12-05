@@ -7,6 +7,7 @@ import authRoutes from './routes/authRoutes.js';
 import courseRoutes from './routes/courseRoute.js';
 import sectionRoutere from './routes/sectionRoutes.js';
 import lesssonRoutes from './routes/lessonRoutes.js';
+import videoRoutes from './routes/videoRoutes.js';
 
 import cors from 'cors'
 
@@ -30,6 +31,8 @@ app.use('/api/course', courseRoutes);
 app.use('/api/sections', sectionRoutere);
 // lesson endpoints
 app.use('/api/lessons', lesssonRoutes);
+// video endpoints
+app.use('/api/videos', videoRoutes);
 
 async function connectDB() {
   try {
