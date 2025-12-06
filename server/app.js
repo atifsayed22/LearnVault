@@ -34,6 +34,10 @@ app.use('/api/course', courseRoutes);
 app.use('/api/sections', sectionRoutere);
 // lesson endpoints
 app.use('/api/lessons', lesssonRoutes);
+// video endpoints\
+app.use('/api/videos', videoRoutes);
+// enrollment endpoints
+app.use('/api/enroll', enrollmentRoutes);
 
 async function connectDB() {
   try {

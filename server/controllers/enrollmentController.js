@@ -43,3 +43,18 @@ export const enrollCourse = async(req,res)=>{
     }       
 
 }
+
+export const getMyCourses = async (req,res)=>{
+    try{
+        const userId = req.user.id;
+        const enrollments = await Enrolment.find({user:userId}).populate(   { path: "course",
+                select: "title description thumbnail instructor"});
+
+        const courses = enrollments.map(enrollment => enrollment.course);
+        return res.json({courses});
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({message:"Server error"})
+    }
+}

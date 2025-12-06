@@ -57,12 +57,13 @@ export const getPlaybackUrl = async (req, res) => {
         }
 
         // Access control
-        const isInstructor = lesson.course.instructor.toString() === req.user._id.toString();
+        const isInstructor = lesson.course.instructor.toString() === req.user.id.toString();
 
         const isEnrolled = await Enrollment.findOne({
-            user: req.user._id,
-            course: lesson.course._id
+            user: req.user.id,
+            course: lesson.course.id
         });
+
 
         if (!isInstructor && !isEnrolled) {
             return res.status(403).json({ message: "You are not enrolled in this course" });
