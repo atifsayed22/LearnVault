@@ -8,3 +8,4 @@ const router = express.Router();
 router.post("/:courseId", auth, enrollCourse);
 router.get("/my-courses", auth, getMyCourses);
 export default router;
+
