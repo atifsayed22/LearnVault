@@ -25,6 +25,10 @@ app.listen(process.env.PORT || 5000, () => {
 
 
 // api endpints 
+app.use(cors({
+  origin: "http://localhost:5173",  // your frontend
+  credentials: true,
+}));
 
 
 // auth endpoints
