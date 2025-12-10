@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import api from "../utils/axioInstance.js";
-import { useAuth } from "../context/AuthContext.jsx";
+import api from "../../utils/axiosInstance.js";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);

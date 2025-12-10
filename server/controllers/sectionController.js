@@ -13,8 +13,8 @@ export const createSection = async(req,res)=>{
         if(!course){
             return res.status(404).json({message:"Course not found"})
         }   
-        console.log("hello ")
-        console.log(course.instructor.toString());
+       
+     
         if(course.instructor.toString() !== req.user.id){
             return res.status(403).json({message:"Forbidden"})
         }

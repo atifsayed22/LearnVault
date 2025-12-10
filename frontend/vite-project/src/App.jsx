@@ -3,10 +3,15 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard.jsx";
 import ProtectedRoute from "./routes/ProtectedRoutes";
 import Landing from "./pages/Landing/Landing.jsx";
-import Auth from "./pages/Auth.jsx";
-import InsDashboard from "./pages/instructor/InsDashboard.jsx";
+import Auth from "./pages/Auth/Auth.jsx";
+import InstructorHome from "./pages/instructor/InsDashboard.jsx";
 import StuDashboard from "./pages/student/StuDashboard.jsx";
 import RoleRoute from "./routes/RoleRoute.jsx";
+import InstructorLayout from "./layout/InstructorLayout.jsx";
+import CreateCourse from "./pages/instructor/CreateCourse.jsx";
+import MyCourses from "./pages/instructor/MyCourses.jsx";
+import Earnings from "./pages/instructor/Earnings.jsx";
+import Profile from "./pages/instructor/Profile.jsx"; 
 
 const App = () => {
   return (
@@ -22,21 +27,28 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+      
         <Route
-          path="/instructor/dashboard"
+          path="/instructor"
           element={
             <ProtectedRoute>
               <RoleRoute allowed={["instructor"]}>
-                <InsDashboard />
+                <InstructorLayout />
               </RoleRoute>
             </ProtectedRoute>
           }
-        />
+        >
+          <Route path="dashboard" element={<InstructorHome />} />
+          <Route path="create-course" element={<CreateCourse />} />
+          <Route path="my-courses" element={<MyCourses />} />
+          <Route path="earnings" element={<Earnings />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
         <Route
           path="/student/dashboard"
           element={
             <ProtectedRoute>
-               <RoleRoute allowed={["student"]}>
+              <RoleRoute allowed={["student"]}>
                 <StuDashboard />
               </RoleRoute>
             </ProtectedRoute>
