@@ -212,3 +212,32 @@ export const getInstructorCourses = async (req, res) => {
   }
 };
 
+export const getEditCourseData = async(req,res)=>{
+  try{
+    const courseId = req.params.courseId;
+    const course = await Course.findById(courseId)
+         .populate({
+        path: "sections",
+        model: "Section",
+        options: { sort: { order: 1 } },
+        populate: {
+          path: "lessons",
+          model: "Lesson",
+          options: { sort: { order: 1 } },
+        },
+      })
+      .populate("instructor", "name email");
+
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    } 
+    if (course.instructor._id.toString() !== req.user.id) {
+      return res.status(403).json({ message: "Forbidden" });
+    }
+    return res.status(200).json({ course });
+  } catch(err){
+    console.log(err);
+    return res.status(500).json({ message: "Server error" });
+  }
+}
+

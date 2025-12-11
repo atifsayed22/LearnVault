@@ -55,3 +55,15 @@ export const deleteSection = async(req,res)=>{
         return res.status(500).json({message:"Server error"})
     }
 }
+
+// controllers/sectionController.js
+export const updateSection = async (req, res) => {
+  const id = req.params.sectionId;
+  const { title } = req.body;
+  const sec = await Section.findById(id).populate("course");
+  if (!sec) return res.status(404).json({ message: "Section not found" });
+  if (sec.course.instructor.toString() !== req.user.id) return res.status(403).json({ message: "Forbidden" });
+  sec.title = title;
+  await sec.save();
+  res.json({ section: sec });
+};

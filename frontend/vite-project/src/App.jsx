@@ -12,6 +12,7 @@ import CreateCourse from "./pages/instructor/CreateCourse.jsx";
 import MyCourses from "./pages/instructor/MyCourses.jsx";
 import Earnings from "./pages/instructor/Earnings.jsx";
 import Profile from "./pages/instructor/Profile.jsx"; 
+import EditCourse from "./pages/instructor/EditCourse.jsx";
 
 const App = () => {
   return (
@@ -43,6 +44,8 @@ const App = () => {
           <Route path="my-courses" element={<MyCourses />} />
           <Route path="earnings" element={<Earnings />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="course/:courseId/edit" element={<EditCourse />} />
+
         </Route>
         <Route
           path="/student/dashboard"

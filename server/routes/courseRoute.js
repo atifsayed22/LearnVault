@@ -8,7 +8,8 @@ import {
   getAllCourses,
   getCourseById,
   getCurriculum,
-  getInstructorCourses
+  getInstructorCourses,
+  getEditCourseData,
 } from "../controllers/courseController.js";
 import { auth } from "../middlewares/auth.js";
 import { isInstructor } from "../middlewares/isInstructor.js";
@@ -23,7 +24,7 @@ router.get(
   "/instructor/my-courses",
   getInstructorCourses
 );
-
+router.get('/edit-data/:courseId', getEditCourseData);
 router.get("/", getAllCourses);
 router.get("/:id", getCourseById);
 router.get("/:courseId/curriculum", getCurriculum);
