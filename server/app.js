@@ -42,9 +42,9 @@ app.use('/api/lessons', lesssonRoutes);
 // video endpoints\
 app.use('/api/videos', videoRoutes);
 // enrollment endpoints
-app.use('/api/enroll', enrollmentRoutes);
+app.use('/api/enrollment', enrollmentRoutes);
 // payment endpoints
-app.use('/api/payments', paymentRoutes);
+app.use('/api/payment', paymentRoutes);
 
 async function connectDB() {
   try {

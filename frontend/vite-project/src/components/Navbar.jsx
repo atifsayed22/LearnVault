@@ -1,51 +1,38 @@
-import  useAuth  from "../utils/useAuth";
-
-
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
-  const { user, logout } = useAuth();
+  const [open, setOpen] = useState(false);
 
   return (
-   <nav className="backdrop-blur-lg bg-white/10 border-b border-white/20 py-4 fixed w-full z-50">
+    <nav className="w-full bg-white/10 backdrop-blur-xl border-b border-white/20 px-6 py-4 flex justify-between items-center">
 
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      {/* LOGO */}
+      <Link to="/" className="text-xl font-bold text-gray-100">
+        LearnVault
+      </Link>
 
-        <a href="/" className="text-2xl font-bold text-indigo-600">
-          LearnVault
-        </a>
-
-        <div className="flex gap-6 items-center">
-
-          <a href="/courses" className="text-black-700 hover:text-indigo-600">
-            Courses
-          </a>
-
-          {!user ? (
-            <>
-              <a href="/auth" className="text-black-700 hover:text-indigo-600">
-                Login
-              </a>
-              <a
-                href="/auth"
-                className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
-              >
-                Register
-              </a>
-            </>
-          ) : (
-            <>
-              <span className="text-black-700">{user.name}</span>
-              <button
-                onClick={logout}
-                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-              >
-                Logout
-              </button>
-            </>
-          )}
-
-        </div>
+      {/* DESKTOP MENU */}
+      <div className="hidden md:flex gap-6 text-gray-300">
+        <Link to="/courses" className="hover:text-white">Browse Courses</Link>
+        <Link to="/login" className="hover:text-white">Login</Link>
       </div>
+
+      {/* MOBILE MENU BUTTON */}
+      <button
+        className="md:hidden text-white"
+        onClick={() => setOpen(!open)}
+      >
+        ☰
+      </button>
+
+      {/* MOBILE DROPDOWN */}
+      {open && (
+        <div className="absolute top-16 left-0 w-full bg-black/80 backdrop-blur-xl p-6 flex flex-col gap-4 md:hidden">
+          <Link to="/courses" onClick={() => setOpen(false)}>Browse Courses</Link>
+          <Link to="/login" onClick={() => setOpen(false)}>Login</Link>
+        </div>
+      )}
     </nav>
   );
 }

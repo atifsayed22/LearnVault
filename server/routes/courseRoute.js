@@ -15,17 +15,17 @@ import { auth } from "../middlewares/auth.js";
 import { isInstructor } from "../middlewares/isInstructor.js";
 
 const router = Router();
-router.use(auth, isInstructor);
+router.use(auth);
 router.post("/create-course", createCourse);
-router.patch("/publish-course/:courseId", publishCourse);
-router.put("/update-course/:courseId", updateCourse);
-router.delete("/delete-course/:courseId", deleteCourse);
+router.patch("/publish-course/:courseId", publishCourse, isInstructor);
+router.put("/update-course/:courseId", updateCourse, isInstructor);
+router.delete("/delete-course/:courseId", deleteCourse, isInstructor);
 router.get(
   "/instructor/my-courses",
   getInstructorCourses
 );
-router.get('/edit-data/:courseId', getEditCourseData);
+router.get('/edit-data/:courseId', getEditCourseData, isInstructor);
 router.get("/", getAllCourses);
-router.get("/:id", getCourseById);
+router.get("/:courseId", getCourseById);
 router.get("/:courseId/curriculum", getCurriculum);
 export default router;

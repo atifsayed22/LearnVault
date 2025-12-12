@@ -11,8 +11,11 @@ import InstructorLayout from "./layout/InstructorLayout.jsx";
 import CreateCourse from "./pages/instructor/CreateCourse.jsx";
 import MyCourses from "./pages/instructor/MyCourses.jsx";
 import Earnings from "./pages/instructor/Earnings.jsx";
-import Profile from "./pages/instructor/Profile.jsx"; 
+import Profile from "./pages/instructor/Profile.jsx";
 import EditCourse from "./pages/instructor/EditCourse.jsx";
+import BrowseCourses from "./pages/student/BrowseCourse.jsx";
+import CourseDetails from "./pages/student/CourseDetail.jsx";
+import CoursePlayer from "./pages/student/CoursePlayer.jsx";
 
 const App = () => {
   return (
@@ -28,7 +31,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-      
+
         <Route
           path="/instructor"
           element={
@@ -45,14 +48,34 @@ const App = () => {
           <Route path="earnings" element={<Earnings />} />
           <Route path="profile" element={<Profile />} />
           <Route path="course/:courseId/edit" element={<EditCourse />} />
-
         </Route>
         <Route
           path="/student/dashboard"
           element={
             <ProtectedRoute>
               <RoleRoute allowed={["student"]}>
-                <StuDashboard />
+                {/* <StuDashboard /> */}
+                <BrowseCourses />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/course/:courseId"
+          element={
+            <ProtectedRoute>
+              <RoleRoute allowed={["student"]}>
+                <CourseDetails />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/course/:courseId/learn"
+          element={
+            <ProtectedRoute>
+              <RoleRoute allowed={["student"]}>
+                <CoursePlayer />
               </RoleRoute>
             </ProtectedRoute>
           }

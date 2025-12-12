@@ -58,3 +58,20 @@ export const getMyCourses = async (req,res)=>{
         return res.status(500).json({message:"Server error"})
     }
 }
+
+
+export const checkEnrollment = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+
+    const exists = await Enrolment.findOne({
+      user: req.user.id,
+      course: courseId
+    });
+
+    return res.json({ enrolled: !!exists });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Server error" });
+  }
+};

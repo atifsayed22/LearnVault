@@ -138,10 +138,20 @@ export const getCourseById = async (req, res) => {
     const course = await Course.findById(req.params.courseId).populate(
       "instructor",
       "name email"
-    );
+    ) .populate({
+        path: "sections",
+        model: "Section",
+        options: { sort: { order: 1 } },
+        populate: {
+          path: "lessons",
+          model: "Lesson",
+          options: { sort: { order: 1 } },
+        }
+      });;
     if (!course || !course.published) {
       return res.status(404).json({ message: "Course not found" });
     }
+    console.log(course)
     return res.status(200).json({ course });
   } catch (err) {
     return res.status(500).json({ message: "Server error" });
