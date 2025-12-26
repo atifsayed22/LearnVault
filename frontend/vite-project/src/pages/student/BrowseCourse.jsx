@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../../utils/axiosInstance";
-import Navbar from "../../components/Navbar";
+
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -47,7 +47,7 @@ export default function BrowseCourses() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
-      <Navbar />
+   
 
       <div className="p-10 max-w-7xl mx-auto">
 
@@ -60,7 +60,7 @@ export default function BrowseCourses() {
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="bg-white/10 border border-white/20 p-2 rounded-lg"
+            className="bg-black/100 border border-white/20 p-2 rounded-lg"
           >
             <option value="">All Categories</option>
             <option value="IT">IT</option>
@@ -71,7 +71,7 @@ export default function BrowseCourses() {
           <select
             value={priceFilter}
             onChange={(e) => setPriceFilter(e.target.value)}
-            className="bg-white/10 border border-white/20 p-2 rounded-lg"
+            className="bg-black/100 border border-white/20 p-2 rounded-lg"
           >
             <option value="">All Prices</option>
             <option value="free">Free</option>
@@ -81,7 +81,7 @@ export default function BrowseCourses() {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="bg-white/10 border border-white/20 p-2 rounded-lg"
+            className="bg-black/100 border border-white/20 p-2 rounded-lg"
           >
             <option value="">Sort</option>
             <option value="price-low">Price: Low to High</option>
@@ -94,7 +94,7 @@ export default function BrowseCourses() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredCourses.map((course) => (
             <Link
-              to={`/course/${course._id}`}
+              to={`/student/course/${course._id}`}
               key={course._id}
               className="bg-white/10 border border-white/20 rounded-xl p-4 hover:bg-white/20 transition"
             >

@@ -12,7 +12,7 @@ export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
 
   const menu = [
-    { label: "Dashboard", path: "/instructor/dashboard", icon: <LayoutDashboard size={18} /> },
+    { label: "Dashboard", path: "/instructor/home", icon: <LayoutDashboard size={18} /> },
     { label: "Create Course", path: "/instructor/create-course", icon: <PlusCircle size={18} /> },
     { label: "My Courses", path: "/instructor/my-courses", icon: <BookOpen size={18} /> },
     { label: "Earnings", path: "/instructor/earnings", icon: <Wallet size={18} /> },

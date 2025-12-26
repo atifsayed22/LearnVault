@@ -60,8 +60,8 @@ export const verifyPayment = async (req, res) => {
         if (!course) return res.status(404).json({ message: "Course not found" });
 
         const price = course.price;
-        const platformFee = price * Number(process.env.PLATFORM_COMMISSION);
-        const instructorEarning = price - platformFee;
+        const platformFee = price * 20 / 100; // 20% platform fee
+        const instructorEarnings = Math.floor(price - platformFee);
 
         // 3️⃣ Create enrollment
         const enrollment = await Enrollment.create({
@@ -72,7 +72,7 @@ export const verifyPayment = async (req, res) => {
             paymentId: razorpay_payment_id,
             orderId: razorpay_order_id,
             platformFee,
-            instructorEarning
+            instructorEarnings
         });
 
         // 4️⃣ Update course.student list
@@ -85,12 +85,12 @@ export const verifyPayment = async (req, res) => {
         if (!wallet) {
             wallet = await Wallet.create({
                 instructor: course.instructor._id,
-                availableBalance: instructorEarning,
-                totalEarned: instructorEarning
+                availableBalance: instructorEarnings,
+                totalEarned: instructorEarnings
             });
         } else {
-            wallet.availableBalance += instructorEarning;
-            wallet.totalEarned += instructorEarning;
+            wallet.availableBalance += instructorEarnings;
+            wallet.totalEarned += instructorEarnings;
             await wallet.save();
         }
 

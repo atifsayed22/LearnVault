@@ -24,13 +24,14 @@ export default function Auth() {
 
       if (isLogin) {
         console.log(res.data.user);
+        console.log(res.data.token);
         loginContext(res.data.user, res.data.token);
         const role = res.data.user.role;
 
         if (role === "student") {
-          navigate("/student/dashboard");
+          navigate("/student/courses");
         } else if (role === "instructor") {
-          navigate("/instructor/dashboard");
+          navigate("/instructor");
         } else {
           navigate("/");
         }

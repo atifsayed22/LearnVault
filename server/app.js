@@ -10,6 +10,8 @@ import lesssonRoutes from './routes/lessonRoutes.js';
 import videoRoutes from './routes/videoRoutes.js';
 import enrollmentRoutes from './routes/enrollRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
+import analyticsRoutes from './routes/analyticsRoutes.js';
+import lessonRoutes from './routes/lessonProgressRoutes.js';
 
 import cors from 'cors'
 
@@ -45,7 +47,8 @@ app.use('/api/videos', videoRoutes);
 app.use('/api/enrollment', enrollmentRoutes);
 // payment endpoints
 app.use('/api/payment', paymentRoutes);
-
+app.use('/api/instructor', analyticsRoutes);
+app.use('/api/progress', lessonRoutes);
 async function connectDB() {
   try {
     await mongoose.connect(process.env.MONGO_URI);

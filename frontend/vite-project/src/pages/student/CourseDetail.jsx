@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate , useLocation} from "react-router-dom";
 import api from "../../utils/axiosInstance";
 import toast from "react-hot-toast";
-import Navbar from "../../components/Navbar";
+
 
 export default function CourseDetails() {
   const { courseId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [course, setCourse] = useState(null);
   const [enrolled, setEnrolled] = useState(false);
@@ -20,6 +21,8 @@ export default function CourseDetails() {
     if (!courseId) return;
     loadCourse();
   }, [courseId]);
+
+  
 
   const loadCourse = async () => {
     try {
@@ -74,9 +77,9 @@ export default function CourseDetails() {
               ...response,
               courseId,
             });
-
+            setEnrolled(true);
             toast.success("Enrolled successfully 🎉");
-            navigate(`/course/${courseId}/learn`);
+            navigate(`/student/course/${courseId}/learn`);
           } catch (err) {
             toast.error("Payment verification failed");
           }
@@ -104,7 +107,7 @@ export default function CourseDetails() {
 
   return (
     <div className="bg-black min-h-screen text-white">
-      <Navbar />
+    
 
       {/* HEADER */}
       <header className="bg-gradient-to-b from-gray-900 to-black py-12 px-6 md:px-16">
@@ -181,7 +184,7 @@ export default function CourseDetails() {
           {enrolled ? (
             <button
               className="btn-primary bg-green-600 hover:bg-green-700 w-full"
-              onClick={() => navigate(`/course/${courseId}/learn`)}
+              onClick={() => navigate(`/student/course/${courseId}/learn`)}
             >
               Go to Course
             </button>
