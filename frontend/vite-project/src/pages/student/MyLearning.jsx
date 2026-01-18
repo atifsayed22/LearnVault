@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 
 export default function MyLearning() {
   const [courses, setCourses] = useState([]);
+  const [progressMap, setProgressMap] = useState({});
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -16,6 +17,23 @@ export default function MyLearning() {
     try {
       const res = await api.get("/enrollment/my-courses");
       setCourses(res.data.courses);
+
+      // Fetch progress for each course
+      const progressData = {};
+      for (const course of res.data.courses) {
+        try {
+          const progressRes = await api.get(`/progress/course/${course._id}`);
+          progressData[course._id] = progressRes.data.completion;
+        } catch (err) {
+          // If progress fetch fails, set default
+          progressData[course._id] = {
+            completedLessons: 0,
+            totalLessons: 0,
+            completionPercentage: 0
+          };
+        }
+      }
+      setProgressMap(progressData);
     } catch (err) {
       toast.error("Failed to load courses");
     } finally {
@@ -57,13 +75,19 @@ export default function MyLearning() {
               {course.instructor?.name}
             </p>
 
-            {/* Progress placeholder */}
+            {/* Progress Bar */}
             <div className="mb-4">
-              <div className="text-xs text-gray-400 mb-1">
-                Progress
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-xs text-gray-400">Progress</span>
+                <span className="text-xs font-semibold text-gray-300">
+                  {progressMap[course._id]?.completionPercentage || 0}%
+                </span>
               </div>
               <div className="w-full bg-white/10 h-2 rounded">
-                <div className="bg-purple-500 h-2 rounded w-[0%]" />
+                <div 
+                  className="bg-purple-500 h-2 rounded transition-all duration-300"
+                  style={{ width: `${progressMap[course._id]?.completionPercentage || 0}%` }}
+                />
               </div>
             </div>
 

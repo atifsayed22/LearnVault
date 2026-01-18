@@ -13,6 +13,7 @@ export default function CoursePlayer() {
   const [currentLesson, setCurrentLesson] = useState(null);
   const [videoUrl, setVideoUrl] = useState(null);
   const [progressMap, setProgressMap] = useState({});
+  const [completion, setCompletion] = useState(null);
   const [allowed, setAllowed] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -56,6 +57,9 @@ export default function CoursePlayer() {
         map[p.lesson] = p;
       });
       setProgressMap(map);
+      
+      // Store completion data
+      setCompletion(progressRes.data.completion);
 
       // Resume last lesson
       const lastLessonProgress = progressRes.data.progress
@@ -93,8 +97,9 @@ export default function CoursePlayer() {
     try {
       const res = await api.get(`/videos/get-playback-url/${lessonId}`);
       setVideoUrl(res.data.playbackUrl);
-    } catch {
-      toast.error("Unable to load video");
+    } catch (err) {
+      console.error("Video load error:", err.response?.data || err.message);
+      toast.error(err.response?.data?.message || "Unable to load video");
     }
   };
 
@@ -109,6 +114,12 @@ export default function CoursePlayer() {
         status,
         lastWatchedTime: time,
       });
+
+      // If lesson completed, refresh completion stats
+      if (status === "completed") {
+        const res = await api.get(`/progress/course/${courseId}`);
+        setCompletion(res.data.completion);
+      }
     } catch (err) {
       console.log("Progress update failed");
     }
@@ -171,6 +182,7 @@ export default function CoursePlayer() {
           course={course}
           currentLesson={currentLesson}
           progressMap={progressMap}
+          completion={completion}
           onLessonSelect={handleLessonSelect}
         />
 

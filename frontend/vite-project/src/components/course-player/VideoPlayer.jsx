@@ -35,6 +35,7 @@ export default function VideoPlayer({
   };
 
   if (!url) {
+    console.log(url)
     return <div className="text-gray-400">Loading video...</div>;
   }
 
