@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Landing from "./pages/Landing/Landing.jsx";
 import Auth from "./pages/Auth/Auth.jsx";
+import InstructorRegister from "./pages/Auth/InstructorRegister.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 
 /* ROUTE GUARDS */
@@ -34,6 +35,7 @@ const App = () => {
         {/* PUBLIC */}
         <Route path="/" element={<Landing />} />
         <Route path="/auth/*" element={<Auth />} />
+        <Route path="/auth/instructor-register" element={<InstructorRegister />} />
 
         {/* OPTIONAL DASHBOARD */}
         <Route
