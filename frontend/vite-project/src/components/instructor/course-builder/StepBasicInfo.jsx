@@ -53,6 +53,12 @@ export default function StepBasicInfo({ next, setCourse }) {
       />
 
       <input
+        placeholder="Thumbnail URL"
+        className="input"
+        {...register("thumbnail")}
+      />
+
+      <input
         type="number"
         placeholder="Price"
         className="input"

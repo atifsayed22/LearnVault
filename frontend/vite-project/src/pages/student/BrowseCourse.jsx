@@ -31,11 +31,14 @@ export default function BrowseCourses() {
   // FILTERS APPLY
   const filteredCourses = courses
     .filter((c) =>
-      category ? c.category?.toLowerCase() === category.toLowerCase() : true
+      category ? c.category?.toLowerCase() === category.toLowerCase() : true,
     )
     .filter((c) =>
-      priceFilter === "free" ? c.price === 0 :
-      priceFilter === "paid" ? c.price > 0 : true
+      priceFilter === "free"
+        ? c.price === 0
+        : priceFilter === "paid"
+          ? c.price > 0
+          : true,
     )
     .sort((a, b) => {
       if (sort === "price-low") return a.price - b.price;
@@ -47,16 +50,12 @@ export default function BrowseCourses() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
-   
-
       <div className="p-10 max-w-7xl mx-auto">
-
         {/* HEADING */}
         <h1 className="text-3xl font-bold mb-6">Browse Courses</h1>
 
         {/* FILTERS */}
         <div className="flex flex-wrap gap-4 mb-8">
-
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
@@ -87,7 +86,6 @@ export default function BrowseCourses() {
             <option value="price-low">Price: Low to High</option>
             <option value="price-high">Price: High to Low</option>
           </select>
-
         </div>
 
         {/* COURSE GRID */}
@@ -98,8 +96,12 @@ export default function BrowseCourses() {
               key={course._id}
               className="bg-white/10 border border-white/20 rounded-xl p-4 hover:bg-white/20 transition"
             >
-              <div className="h-40 bg-black/20 rounded-lg mb-4 flex items-center justify-center">
-                <span className="text-gray-400">Thumbnail</span>
+              <div className="h-40 bg-black/20 rounded-lg mb-4 overflow-hidden">
+                <img
+                  src={course.thumbnail}
+                  alt={course.title}
+                  className="w-full h-full object-cover"
+                />
               </div>
 
               <h2 className="text-xl font-semibold mb-2">{course.title}</h2>
@@ -112,7 +114,6 @@ export default function BrowseCourses() {
             </Link>
           ))}
         </div>
-
       </div>
     </div>
   );

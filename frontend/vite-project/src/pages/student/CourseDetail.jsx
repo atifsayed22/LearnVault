@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate , useLocation} from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import api from "../../utils/axiosInstance";
 import toast from "react-hot-toast";
-
 
 export default function CourseDetails() {
   const { courseId } = useParams();
@@ -21,8 +20,6 @@ export default function CourseDetails() {
     if (!courseId) return;
     loadCourse();
   }, [courseId]);
-
-  
 
   const loadCourse = async () => {
     try {
@@ -107,8 +104,6 @@ export default function CourseDetails() {
 
   return (
     <div className="bg-black min-h-screen text-white">
-    
-
       {/* HEADER */}
       <header className="bg-gradient-to-b from-gray-900 to-black py-12 px-6 md:px-16">
         <h1 className="text-4xl font-bold mb-3">{course.title}</h1>
@@ -121,10 +116,8 @@ export default function CourseDetails() {
 
       {/* BODY */}
       <main className="grid grid-cols-1 md:grid-cols-3 gap-12 p-10 md:px-16">
-
         {/* LEFT CONTENT */}
         <section className="md:col-span-2 space-y-10">
-
           {/* WHAT YOU'LL LEARN */}
           <div className="bg-white/5 p-6 rounded-xl border border-white/10">
             <h2 className="text-2xl font-bold mb-4">What you'll learn</h2>
@@ -172,10 +165,13 @@ export default function CourseDetails() {
 
         {/* ASIDE */}
         <aside className="bg-white/10 p-6 rounded-xl border border-white/20 h-fit sticky top-20">
-
           {/* Thumbnail */}
-          <div className="h-48 bg-black/20 rounded-lg mb-4 flex items-center justify-center">
-            <span className="text-gray-400">Course Preview</span>
+          <div className="h-40 bg-black/20 rounded-lg mb-4 overflow-hidden">
+            <img
+              src={course.thumbnail}
+              alt={course.title}
+              className="w-full h-full object-cover"
+            />
           </div>
 
           <p className="text-3xl font-bold mb-4">₹{course.price}</p>

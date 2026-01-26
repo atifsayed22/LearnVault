@@ -33,7 +33,7 @@ export default function MyCourses() {
       const res = await api.get(
         `/course/instructor/my-courses?page=${pageNumber}&limit=${limit}`
       );
-
+      
       setCourses(res.data.courses);
       setPages(res.data.pages);
     } catch (err) {
@@ -61,7 +61,8 @@ export default function MyCourses() {
             className="bg-white/10 border border-white/20 rounded-xl p-6"
           >
             <div className="h-40 bg-white/5 rounded-lg mb-4 flex items-center justify-center">
-              <span className="text-gray-400">No Thumbnail</span>
+             
+             <img src={`${course.thumbnail}`} />
             </div>
 
             <h2 className="text-xl font-semibold mb-2">{course.title}</h2>

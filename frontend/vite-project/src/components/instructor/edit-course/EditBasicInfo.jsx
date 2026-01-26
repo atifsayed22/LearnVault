@@ -10,6 +10,7 @@ export default function EditBasicInfo({ course, onUpdated }) {
       subtitle: course.subtitle || "",
       description: course.description || "",
       category: course.category || "",
+      thumbnail: course.thumbnail || "",
       price: course.price || 0,
     },
   });
@@ -20,6 +21,7 @@ export default function EditBasicInfo({ course, onUpdated }) {
       subtitle: course.subtitle || "",
       description: course.description || "",
       category: course.category || "",
+      thumbnail: course.thumbnail || "",
       price: course.price || 0,
     });
   }, [course, reset]);
@@ -43,6 +45,7 @@ export default function EditBasicInfo({ course, onUpdated }) {
       <input {...register("subtitle")} className="input mb-3" placeholder="Subtitle (optional)" />
       <textarea {...register("description", { required: true })} className="input mb-3" placeholder="Description" />
       <input {...register("category", { required: true })} className="input mb-3" placeholder="Category" />
+      <input {...register("thumbnail")} className="input mb-3" placeholder="Thumbnail URL" />
       <input type="number" {...register("price", { valueAsNumber: true })} className="input mb-3" placeholder="Price" />
 
       {/* Thumbnail upload can be implemented here later */}
