@@ -12,6 +12,7 @@ import enrollmentRoutes from './routes/enrollRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
 import analyticsRoutes from './routes/analyticsRoutes.js';
 import lessonRoutes from './routes/lessonProgressRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 import cors from 'cors'
 
@@ -49,6 +50,8 @@ app.use('/api/enrollment', enrollmentRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/instructor', analyticsRoutes);
 app.use('/api/progress', lessonRoutes);
+// admin endpoints
+app.use('/api/admin', adminRoutes);
 async function connectDB() {
   try {
     await mongoose.connect(process.env.MONGO_URI);

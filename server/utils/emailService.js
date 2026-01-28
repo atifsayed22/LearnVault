@@ -1,10 +1,11 @@
 import nodemailer from "nodemailer";
 
-// Check if email credentials are configured
-if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
-  console.warn("⚠️ WARNING: Email credentials not configured!");
-  console.warn("EMAIL_USER:", process.env.EMAIL_USER ? "✓ Set" : "❌ Missing");
-  console.warn("EMAIL_PASSWORD:", process.env.EMAIL_PASSWORD ? "✓ Set" : "❌ Missing");
+// Check if email credentials are configured (silent check, only warn if missing)
+const emailConfigured = process.env.EMAIL_USER && process.env.EMAIL_PASSWORD;
+if (!emailConfigured && process.env.NODE_ENV !== 'test') {
+  console.warn("⚠️ WARNING: Email service not configured. Email features will be disabled.");
+  console.warn("   EMAIL_USER:", process.env.EMAIL_USER ? "✓ Set" : "❌ Missing");
+  console.warn("   EMAIL_PASSWORD:", process.env.EMAIL_PASSWORD ? "✓ Set" : "❌ Missing");
 }
 
 // Create transporter function (lazy initialization)

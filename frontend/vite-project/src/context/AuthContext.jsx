@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import axiosInstance from "../utils/axiosInstance";
 
 export const AuthContext = createContext();
 
@@ -9,14 +10,38 @@ export const AuthProvider = ({ children }) => {
 
   // 🔥 Load token + user from localStorage on page reload
   useEffect(() => {
-    const savedToken = localStorage.getItem("token");
-    const savedUser = localStorage.getItem("user");
+    const initAuth = async () => {
+      try {
+        const savedToken = localStorage.getItem("token");
+        const savedUser = localStorage.getItem("user");
 
-    if (savedToken && savedUser) {
-      setToken(savedToken);
-      setUser(JSON.parse(savedUser));
-    }
-    setLoading(false);
+        if (savedToken && savedUser) {
+          setToken(savedToken);
+          const parsedUser = JSON.parse(savedUser);
+          setUser(parsedUser);
+          
+          // Only verify instructor data from server (they might have been approved by admin)
+          // Skip this for students to reduce unnecessary API calls
+          if (parsedUser.role === "instructor") {
+            try {
+              const response = await axiosInstance.get("/auth/me");
+              if (response.data?.user) {
+                // Update with fresh data from server
+                setUser(response.data.user);
+                localStorage.setItem("user", JSON.stringify(response.data.user));
+              }
+            } catch (err) {
+              // If server call fails, keep using cached instructor data
+              console.warn("Could not verify instructor data from server");
+            }
+          }
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    initAuth();
   }, []);
 
   // 🔥 login: save to state + localStorage

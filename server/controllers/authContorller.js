@@ -113,3 +113,20 @@ export const login = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+// Get current authenticated user data
+export const getCurrentUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ 
+      message: "User data fetched", 
+      user 
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

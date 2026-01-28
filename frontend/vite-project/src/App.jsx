@@ -12,6 +12,7 @@ import RoleRoute from "./routes/RoleRoute";
 /* LAYOUTS */
 import InstructorLayout from "./layout/InstructorLayout.jsx";
 import StudentLayout from "./layout/StudentLayout.jsx";
+import AdminLayout from "./layout/AdminLayout.jsx";
 
 /* INSTRUCTOR PAGES */
 import InstructorHome from "./pages/instructor/InsDashboard.jsx";
@@ -26,6 +27,13 @@ import BrowseCourses from "./pages/student/BrowseCourse.jsx";
 import CourseDetails from "./pages/student/CourseDetail.jsx";
 import CoursePlayer from "./pages/student/CoursePlayer.jsx";
 import MyLearning from "./pages/student/MyLearning.jsx";
+
+/* ADMIN PAGES */
+import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
+import InstructorManagement from "./pages/admin/InstructorManagement.jsx";
+import StudentManagement from "./pages/admin/StudentManagement.jsx";
+import CourseManagement from "./pages/admin/CourseManagement.jsx";
+import PendingApplications from "./pages/admin/PendingApplications.jsx";
 
 const App = () => {
   return (
@@ -69,29 +77,24 @@ const App = () => {
         </Route>
 
         {/* ===================== */}
-        {/* STUDENT ROUTES */}
+        {/* ADMIN ROUTES */}
         {/* ===================== */}
         <Route
-        path="/student"
+          path="/admin"
           element={
             <ProtectedRoute>
-              <RoleRoute allowed={["student"]}>
-                <StudentLayout />
+              <RoleRoute allowed={["admin"]}>
+                <AdminLayout />
               </RoleRoute>
             </ProtectedRoute>
           }
         >
-          <Route path="courses" element={<BrowseCourses />} />
-          <Route path="course/:courseId" element={<CourseDetails />} />
-          <Route path="my-learning" element={<MyLearning />} />
+          <Route index element={<AdminDashboard />} />
+          <Route path="instructors" element={<InstructorManagement />} />
+          <Route path="students" element={<StudentManagement />} />
+          <Route path="courses" element={<CourseManagement />} />
+          <Route path="pending-applications" element={<PendingApplications />} />
         </Route>
-          <Route path="student/course/:courseId/learn" element={
-            <ProtectedRoute>
-              <RoleRoute allowed={["student"]}>
-                <CoursePlayer />
-              </RoleRoute>
-            </ProtectedRoute>
-          } />
 
       </Routes>
     </Router>
