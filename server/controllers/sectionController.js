@@ -15,7 +15,7 @@ export const createSection = async(req,res)=>{
         }   
        
      
-        if(course.instructor.toString() !== req.user.id){
+        if(course.instructor.toString() !== req.user.id.toString()){
             return res.status(403).json({message:"Forbidden"})
         }
         const newSectin = new Section({
@@ -42,7 +42,7 @@ export const deleteSection = async(req,res)=>{
             return res.status(404).json({message:"Section not found"})
         }
         const course = await Course.findById(section.course);
-        if(course.instructor.toString() !== req.user.id){
+        if(course.instructor.toString() !== req.user.id.toString()){
             return res.status(403).json({message:"Forbidden"})
         }
         await Section.findByIdAndDelete(sectionId);
@@ -62,7 +62,7 @@ export const updateSection = async (req, res) => {
   const { title } = req.body;
   const sec = await Section.findById(id).populate("course");
   if (!sec) return res.status(404).json({ message: "Section not found" });
-  if (sec.course.instructor.toString() !== req.user.id) return res.status(403).json({ message: "Forbidden" });
+  if (sec.course.instructor.toString() !== req.user.id.toString()) return res.status(403).json({ message: "Forbidden" });
   sec.title = title;
   await sec.save();
   res.json({ section: sec });

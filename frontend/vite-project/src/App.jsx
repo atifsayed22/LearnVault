@@ -21,6 +21,7 @@ import MyCourses from "./pages/instructor/MyCourses.jsx";
 import Earnings from "./pages/instructor/Earnings.jsx";
 import Profile from "./pages/instructor/Profile.jsx";
 import EditCourse from "./pages/instructor/EditCourse.jsx";
+import CourseCompletionDetails from "./pages/instructor/CourseCompletionDetails.jsx";
 
 /* STUDENT PAGES */
 import BrowseCourses from "./pages/student/BrowseCourse.jsx";
@@ -46,14 +47,7 @@ const App = () => {
         <Route path="/auth/instructor-register" element={<InstructorRegister />} />
 
         {/* OPTIONAL DASHBOARD */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
+      
 
         {/* ===================== */}
         {/* INSTRUCTOR ROUTES */}
@@ -74,7 +68,25 @@ const App = () => {
           <Route path="earnings" element={<Earnings />} />
           <Route path="profile" element={<Profile />} />
           <Route path="course/:courseId/edit" element={<EditCourse />} />
+          <Route path="course/:courseId/completion-details" element={<CourseCompletionDetails />} />
         </Route>
+
+
+        <Route
+          path="/student"
+          element={
+            <ProtectedRoute>
+              <RoleRoute allowed={["student"]}>
+                <StudentLayout />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<BrowseCourses />} />
+          <Route path="course/:courseId" element={<CourseDetails />} />
+          <Route path="course/:courseId/learn/*" element={<CoursePlayer />} />
+          <Route path="my-learning" element={<MyLearning />} />
+        </Route>  
 
         {/* ===================== */}
         {/* ADMIN ROUTES */}

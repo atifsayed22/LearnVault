@@ -15,6 +15,7 @@ export const isVerifiedInstructor = (req, res, next) => {
 
     // Check if instructor is verified
     if (!req.user.isVerified) {
+      
       return res.status(403).json({ 
         message: "Your instructor profile is pending verification. Please wait for admin approval.",
         status: "PENDING_VERIFICATION"

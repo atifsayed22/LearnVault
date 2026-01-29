@@ -1,5 +1,6 @@
 import { useAuth } from "../../context/AuthContext";
 import DashboardCard from "../../components/instructor/DashboardCard";
+import CoursesSummary from "../../components/instructor/CoursesSummary";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 
 export default function InstructorHome() {
@@ -87,6 +88,14 @@ export default function InstructorHome() {
           link="/instructor/profile"
         />
       </div>
+
+      {/* COURSES SUMMARY SECTION - Only if verified */}
+      {isVerified && (
+        <div className="mt-12">
+          <h2 className="text-2xl font-bold mb-6">Courses Summary</h2>
+          <CoursesSummary />
+        </div>
+      )}
     </div>
   );
 }

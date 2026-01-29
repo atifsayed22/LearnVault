@@ -29,6 +29,6 @@ router.patch("/publish-course/:courseId", isVerifiedInstructor, publishCourse);
 router.put("/update-course/:courseId", isVerifiedInstructor, updateCourse);
 router.delete("/delete-course/:courseId", isVerifiedInstructor, deleteCourse);
 router.get("/instructor/my-courses", isInstructor, getInstructorCourses);
-router.get('/edit-data/:courseId', isVerifiedInstructor, getEditCourseData);
+router.get('/edit-data/:courseId', getEditCourseData);
 
 export default router;

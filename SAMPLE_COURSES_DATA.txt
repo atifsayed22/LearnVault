@@ -1,0 +1,420 @@
+================================================================================
+                    SAMPLE COURSES DATA FOR LEARNVAULT
+================================================================================
+
+==================
+COURSE 1: WEB DEVELOPMENT
+==================
+Title: Complete Web Development Bootcamp 2025
+Description: Learn HTML, CSS, JavaScript, React, Node.js, and MongoDB from scratch. Build real-world projects and become a full-stack web developer.
+Price: 3999
+Category: Technology
+Thumbnail: https://via.placeholder.com/400x300?text=Web+Development
+
+SECTION 1: HTML & CSS Fundamentals
+  Lesson 1: Introduction to HTML
+  Lesson 2: HTML Forms and Semantic Elements
+  Lesson 3: CSS Basics and Styling
+  Lesson 4: CSS Flexbox and Grid
+  Lesson 5: Responsive Web Design
+
+SECTION 2: JavaScript Mastery
+  Lesson 1: JavaScript Basics and Variables
+  Lesson 2: Functions and Scope
+  Lesson 3: Objects and Arrays
+  Lesson 4: DOM Manipulation
+  Lesson 5: Async/Await and Promises
+  Lesson 6: Modern JavaScript (ES6+)
+
+SECTION 3: React.js
+  Lesson 1: React Fundamentals
+  Lesson 2: Components and Props
+  Lesson 3: State and Hooks
+  Lesson 4: React Router
+  Lesson 5: State Management with Redux
+  Lesson 6: Building Real Projects
+
+SECTION 4: Backend with Node.js
+  Lesson 1: Node.js Introduction
+  Lesson 2: Express Framework
+  Lesson 3: REST API Development
+  Lesson 4: Database Integration
+  Lesson 5: Authentication & Authorization
+
+SECTION 5: Database (MongoDB)
+  Lesson 1: MongoDB Basics
+  Lesson 2: CRUD Operations
+  Lesson 3: Aggregation Pipeline
+  Lesson 4: Indexing and Performance
+
+---
+
+==================
+COURSE 2: DATA SCIENCE
+==================
+Title: Data Science and Machine Learning with Python
+Description: Master Python programming, data analysis, visualization, and machine learning algorithms. Build predictive models and analyze real datasets.
+Price: 2999
+Category: Data Science
+
+SECTION 1: Python Fundamentals
+  Lesson 1: Python Basics
+  Lesson 2: Data Types and Collections
+  Lesson 3: Control Flow
+  Lesson 4: Functions and Modules
+  Lesson 5: File Handling
+
+SECTION 2: Data Analysis with Pandas
+  Lesson 1: Introduction to Pandas
+  Lesson 2: DataFrames and Series
+  Lesson 3: Data Cleaning
+  Lesson 4: Data Manipulation
+  Lesson 5: Merging and Grouping Data
+
+SECTION 3: Data Visualization
+  Lesson 1: Matplotlib Basics
+  Lesson 2: Seaborn for Statistical Visualization
+  Lesson 3: Interactive Plots with Plotly
+  Lesson 4: Dashboard Creation
+
+SECTION 4: Machine Learning Fundamentals
+  Lesson 1: Supervised Learning Basics
+  Lesson 2: Linear Regression
+  Lesson 3: Logistic Regression
+  Lesson 4: Decision Trees
+  Lesson 5: Random Forests
+  Lesson 6: SVM and KNN
+
+SECTION 5: Advanced ML Techniques
+  Lesson 1: Neural Networks Basics
+  Lesson 2: Deep Learning with TensorFlow
+  Lesson 3: Natural Language Processing
+  Lesson 4: Time Series Analysis
+
+---
+
+==================
+COURSE 3: MOBILE APP DEVELOPMENT
+==================
+Title: React Native: Build Cross-Platform Mobile Apps
+Description: Create iOS and Android apps using React Native. Learn navigation, state management, APIs integration, and app deployment.
+Price: 2499
+Category: Mobile Development
+
+SECTION 1: React Native Basics
+  Lesson 1: Environment Setup
+  Lesson 2: Components and Views
+  Lesson 3: Styling in React Native
+  Lesson 4: Flexbox Layout
+  Lesson 5: Platform-Specific Code
+
+SECTION 2: Navigation
+  Lesson 1: React Navigation Basics
+  Lesson 2: Stack Navigation
+  Lesson 3: Tab and Drawer Navigation
+  Lesson 4: Deep Linking
+
+SECTION 3: State Management
+  Lesson 1: Local State and Props
+  Lesson 2: Context API
+  Lesson 3: Redux in React Native
+  Lesson 4: MobX State Management
+
+SECTION 4: Working with APIs
+  Lesson 1: Fetch and Axios
+  Lesson 2: GraphQL Integration
+  Lesson 3: Authentication
+  Lesson 4: Error Handling
+
+SECTION 5: Advanced Topics
+  Lesson 1: Camera and Photos
+  Lesson 2: Geolocation
+  Lesson 3: Local Storage
+  Lesson 4: App Deployment (iOS & Android)
+
+---
+
+==================
+COURSE 4: DIGITAL MARKETING
+==================
+Title: Complete Digital Marketing Masterclass
+Description: Learn SEO, SEM, Social Media Marketing, Email Marketing, and Content Strategy to grow your online presence.
+Price: 1999
+Category: Marketing
+
+SECTION 1: Digital Marketing Fundamentals
+  Lesson 1: Digital Landscape Overview
+  Lesson 2: Marketing Funnel
+  Lesson 3: Target Audience Analysis
+  Lesson 4: Competitive Analysis
+
+SECTION 2: SEO Mastery
+  Lesson 1: On-Page SEO
+  Lesson 2: Off-Page SEO and Link Building
+  Lesson 3: Technical SEO
+  Lesson 4: SEO Tools and Analytics
+
+SECTION 3: PPC Advertising
+  Lesson 1: Google Ads Basics
+  Lesson 2: Campaign Setup and Management
+  Lesson 3: Bid Strategies
+  Lesson 4: Ad Copy and Landing Pages
+
+SECTION 4: Social Media Marketing
+  Lesson 1: Facebook Marketing
+  Lesson 2: Instagram Strategy
+  Lesson 3: LinkedIn for B2B
+  Lesson 4: TikTok Marketing
+
+SECTION 5: Email and Content Marketing
+  Lesson 1: Email Campaign Strategy
+  Lesson 2: List Building
+  Lesson 3: Content Marketing Fundamentals
+  Lesson 4: Blogging for SEO
+
+---
+
+==================
+COURSE 5: UI/UX DESIGN
+==================
+Title: UI/UX Design Complete Course
+Description: Master user interface and experience design. Learn design thinking, wireframing, prototyping, and tools like Figma.
+Price: 1799
+Category: Design
+
+SECTION 1: Design Fundamentals
+  Lesson 1: Design Principles
+  Lesson 2: Color Theory
+  Lesson 3: Typography
+  Lesson 4: Visual Hierarchy
+
+SECTION 2: User Experience
+  Lesson 1: User Research
+  Lesson 2: User Personas
+  Lesson 3: User Journey Mapping
+  Lesson 4: Information Architecture
+
+SECTION 3: Wireframing and Prototyping
+  Lesson 1: Low-Fidelity Wireframes
+  Lesson 2: High-Fidelity Designs
+  Lesson 3: Prototyping Basics
+  Lesson 4: Interaction Design
+
+SECTION 4: Figma Mastery
+  Lesson 1: Figma Interface
+  Lesson 2: Components and Variants
+  Lesson 3: Prototyping in Figma
+  Lesson 4: Design Systems
+
+SECTION 5: Real Projects
+  Lesson 1: Mobile App Design Project
+  Lesson 2: Website Redesign
+  Lesson 3: Dashboard Design
+  Lesson 4: Design Portfolio Building
+
+---
+
+==================
+COURSE 6: CLOUD COMPUTING
+==================
+Title: AWS Cloud Computing - The Complete Guide
+Description: Learn Amazon Web Services from basics to advanced. Deploy applications, manage databases, and build scalable cloud solutions.
+Price: 2799
+Category: Cloud & DevOps
+
+SECTION 1: AWS Fundamentals
+  Lesson 1: Cloud Computing Basics
+  Lesson 2: AWS Core Services
+  Lesson 3: AWS Management Console
+  Lesson 4: Billing and Pricing
+
+SECTION 2: Compute Services
+  Lesson 1: EC2 Instances
+  Lesson 2: Auto Scaling
+  Lesson 3: Load Balancing
+  Lesson 4: Lambda Functions
+
+SECTION 3: Storage and Database
+  Lesson 1: S3 Storage
+  Lesson 2: RDS Databases
+  Lesson 3: DynamoDB
+  Lesson 4: Data Migration
+
+SECTION 4: Networking
+  Lesson 1: VPC Configuration
+  Lesson 2: Security Groups
+  Lesson 3: Route 53 DNS
+  Lesson 4: CloudFront CDN
+
+SECTION 5: DevOps and Monitoring
+  Lesson 1: CloudFormation
+  Lesson 2: CodePipeline
+  Lesson 3: CloudWatch Monitoring
+  Lesson 4: AWS Well-Architected Framework
+
+---
+
+==================
+COURSE 7: PYTHON FOR BEGINNERS
+==================
+Title: Python Programming for Absolute Beginners
+Description: Start your programming journey with Python. Learn syntax, logic, and build real programs with no prior experience needed.
+Price: 999
+Category: Programming
+
+SECTION 1: Python Basics
+  Lesson 1: Installation and Setup
+  Lesson 2: Your First Program
+  Lesson 3: Variables and Data Types
+  Lesson 4: Input and Output
+
+SECTION 2: Control Structures
+  Lesson 1: Conditional Statements
+  Lesson 2: Loops and Iteration
+  Lesson 3: Break and Continue
+  Lesson 4: Nested Control Structures
+
+SECTION 3: Functions and Modules
+  Lesson 1: Creating Functions
+  Lesson 2: Parameters and Arguments
+  Lesson 3: Return Values
+  Lesson 4: Scope and Namespaces
+
+SECTION 4: Data Structures
+  Lesson 1: Lists
+  Lesson 2: Tuples and Sets
+  Lesson 3: Dictionaries
+  Lesson 4: Comprehensions
+
+SECTION 5: File Handling and Exceptions
+  Lesson 1: Reading and Writing Files
+  Lesson 2: Error Handling
+  Lesson 3: Exceptions
+  Lesson 4: Debugging
+
+---
+
+==================
+COURSE 8: GRAPHIC DESIGN
+==================
+Title: Professional Graphic Design with Adobe Suite
+Description: Master Adobe Creative Cloud. Learn Photoshop, Illustrator, and InDesign to create stunning visual designs.
+Price: 2299
+Category: Design
+
+SECTION 1: Adobe Photoshop
+  Lesson 1: Photoshop Interface
+  Lesson 2: Selection Tools
+  Lesson 3: Layers and Masks
+  Lesson 4: Color and Adjustment
+  Lesson 5: Text and Effects
+
+SECTION 2: Adobe Illustrator
+  Lesson 1: Vector Basics
+  Lesson 2: Drawing Tools
+  Lesson 3: Shape Construction
+  Lesson 4: Color and Gradients
+  Lesson 5: Logo Design
+
+SECTION 3: Adobe InDesign
+  Lesson 1: Document Setup
+  Lesson 2: Text and Frames
+  Lesson 3: Master Pages
+  Lesson 4: Graphics and Images
+  Lesson 5: Print Preparation
+
+SECTION 4: Design Projects
+  Lesson 1: Social Media Graphics
+  Lesson 2: Branding Package
+  Lesson 3: Print Materials
+  Lesson 4: Web Graphics
+
+SECTION 5: Professional Design
+  Lesson 1: Color Theory Advanced
+  Lesson 2: Typography Mastery
+  Lesson 3: Layout Principles
+  Lesson 4: Design Portfolio
+
+---
+
+==================
+COURSE 9: BUSINESS COMMUNICATION
+==================
+Title: Effective Business Communication and Presentation Skills
+Description: Improve your professional communication, presentation, and leadership skills for career advancement.
+Price: 799
+Category: Business
+
+SECTION 1: Communication Fundamentals
+  Lesson 1: Communication Model
+  Lesson 2: Active Listening
+  Lesson 3: Verbal Communication
+  Lesson 4: Non-Verbal Communication
+
+SECTION 2: Professional Writing
+  Lesson 1: Business Email
+  Lesson 2: Reports and Proposals
+  Lesson 3: Technical Writing
+  Lesson 4: Proofreading and Editing
+
+SECTION 3: Presentation Skills
+  Lesson 1: Presentation Basics
+  Lesson 2: Slide Design
+  Lesson 3: Speaking Techniques
+  Lesson 4: Handling Q&A
+
+SECTION 4: Leadership Communication
+  Lesson 1: Leading Teams
+  Lesson 2: Conflict Resolution
+  Lesson 3: Difficult Conversations
+  Lesson 4: Feedback and Coaching
+
+SECTION 5: Advanced Topics
+  Lesson 1: Negotiation Skills
+  Lesson 2: Public Speaking
+  Lesson 3: Personal Branding
+  Lesson 4: Executive Presence
+
+---
+
+==================
+COURSE 10: CYBERSECURITY FUNDAMENTALS
+==================
+Title: Cybersecurity Essentials - Protect Your Digital Assets
+Description: Learn cybersecurity basics, threat detection, network security, and best practices to secure systems and data.
+Price: 2199
+Category: Security
+
+SECTION 1: Security Fundamentals
+  Lesson 1: Cybersecurity Overview
+  Lesson 2: Threats and Vulnerabilities
+  Lesson 3: Risk Assessment
+  Lesson 4: Security Frameworks
+
+SECTION 2: Network Security
+  Lesson 1: Network Basics
+  Lesson 2: Firewalls and IDS
+  Lesson 3: VPN and Encryption
+  Lesson 4: Network Monitoring
+
+SECTION 3: Application Security
+  Lesson 1: Secure Coding
+  Lesson 2: OWASP Top 10
+  Lesson 3: Web Application Security
+  Lesson 4: API Security
+
+SECTION 4: Access Control
+  Lesson 1: Authentication Methods
+  Lesson 2: Authorization
+  Lesson 3: Identity Management
+  Lesson 4: Multi-Factor Authentication
+
+SECTION 5: Incident Response
+  Lesson 1: Threat Detection
+  Lesson 2: Incident Response Plan
+  Lesson 3: Forensics Basics
+  Lesson 4: Security Compliance
+
+================================================================================
+                            END OF SAMPLE DATA
+================================================================================

@@ -29,11 +29,11 @@ export default function Auth() {
         const role = res.data.user.role;
 
         if (role === "student") {
-          navigate("/student/courses");
+          navigate("/student");
         } else if (role === "instructor") {
-          navigate("/instructor");
+          navigate("/instructor/home");
         } else {
-          navigate("/");
+          navigate("/admin");
         }
       } else {
         

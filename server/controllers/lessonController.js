@@ -17,7 +17,7 @@ export const createLesson = async(req,res)=>{
         }
         const course = await Course.findById(section.course)
 
-        if(course.instructor.toString() !== req.user.id)
+        if(course.instructor.toString() !== req.user.id.toString())
             return res.status(403).json({message:"Forbidden"})
 
         const newLesson = new Lesson({
@@ -53,7 +53,7 @@ export const updateLesson = async (req,res)=>{
 
         }
         const course = await Course.findById(lesson.course);
-        if(course.instructor.toString() !== req.user.id)
+        if(course.instructor.toString() !== req.user.id.toString())
             return res.status(403).json({message:"Forbidden"})
 
         Object.assign(lesson, update);
@@ -76,7 +76,7 @@ export const deleteLesson = async (req, res) => {
     }
 
     const course = await Course.findById(lesson.course);
-    if (!course || course.instructor.toString() !== req.user.id) {
+    if (!course || course.instructor.toString() !== req.user.id.toString()) {
       return res.status(403).json({ message: "Forbidden" });
     }
 

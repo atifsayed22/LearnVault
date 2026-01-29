@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../../utils/axiosInstance";
 import formatCurrency from "../../utils/formatCurrency";
 import {
@@ -50,7 +51,7 @@ export default function Earnings() {
       </div>
 
       {/* KPI CARDS */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <StatCard
           title="Total Earnings"
           // value={`₹${data.totals.totalEarnings}`}
@@ -64,6 +65,11 @@ export default function Earnings() {
         <StatCard
           title="Total Courses"
           value={data.totals.totalCourses}
+        />
+        <StatCard
+          title="Overall Completion Rate"
+          value={`${data.totals.overallCompletionRate}%`}
+          highlight="blue"
         />
       </div>
 
@@ -102,7 +108,7 @@ export default function Earnings() {
       {/* COURSE PERFORMANCE TABLE */}
       <div className="bg-white/5 border border-white/10 rounded-xl p-6">
         <h2 className="text-xl font-semibold mb-4 text-white">
-          Course Performance
+          Course Performance & Earnings
         </h2>
 
         {data.coursePerformance.length === 0 ? (
@@ -111,12 +117,14 @@ export default function Earnings() {
           </p>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-gray-300">
+            <table className="w-full text-left text-gray-300 text-sm">
               <thead>
                 <tr className="border-b border-white/10">
-                  <th className="py-3">Course</th>
-                  <th>Enrollments</th>
-                  <th>Earnings</th>
+                  <th className="py-3 px-2">Course</th>
+                  <th className="py-3 px-2">Lessons</th>
+                  <th className="py-3 px-2">Enrollments</th>
+                  <th className="py-3 px-2">Completion Rate</th>
+                  <th className="py-3 px-2">Earnings</th>
                 </tr>
               </thead>
               <tbody>
@@ -125,10 +133,33 @@ export default function Earnings() {
                     key={course._id}
                     className="border-b border-white/5 hover:bg-white/5 transition"
                   >
-                    <td className="py-3">{course.title}</td>
-                    <td>{course.enrollments}</td>
-                    <td className="text-green-400">
-                      ₹{course.revenue}
+                    <td className="py-3 px-2 font-medium">
+                      <Link
+                        to={`/instructor/course/${course._id}/completion-details`}
+                        className="text-white hover:text-blue-400 transition"
+                      >
+                        {course.title}
+                      </Link>
+                    </td>
+                    <td className="py-3 px-2">{course.totalLessons}</td>
+                    <td className="py-3 px-2">{course.enrollments}</td>
+                    <td className="py-3 px-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-24 bg-gray-700 rounded-full h-2">
+                          <div
+                            className="bg-blue-500 h-2 rounded-full"
+                            style={{
+                              width: `${Math.min(course.completionRate, 100)}%`,
+                            }}
+                          ></div>
+                        </div>
+                        <span className="text-blue-400 font-semibold">
+                          {course.completionRate}%
+                        </span>
+                      </div>
+                    </td>
+                    <td className="py-3 px-2 text-green-400 font-semibold">
+                      {formatCurrency(course.revenue)}
                     </td>
                   </tr>
                 ))}
@@ -150,7 +181,7 @@ function StatCard({ title, value, highlight }) {
       <p className="text-gray-400">{title}</p>
       <p
         className={`text-3xl font-bold mt-2 ${
-          highlight === "green" ? "text-green-400" : "text-white"
+          highlight === "green" ? "text-green-400" : highlight === "blue" ? "text-blue-400" : "text-white"
         }`}
       >
         {value}

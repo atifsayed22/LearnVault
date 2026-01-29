@@ -36,7 +36,7 @@ export const publishCourse = async (req, res) => {
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
     }
-    if (course.instructor.toString() !== req.user.id) {
+    if (course.instructor.toString() !== req.user.id.toString()) {
       return res.status(403).json({ message: "Forbidden" });
     }
 
@@ -56,7 +56,7 @@ export const updateCourse = async (req, res) => {
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
     }
-    if (course.instructor.toString() !== req.user.id) {
+    if (course.instructor.toString() !== req.user.id.toString()) {
       return res.status(403).json({ message: "Forbidden" });
     }
 
@@ -79,8 +79,19 @@ export const deleteCourse = async (req, res) => {
       return res.status(404).json({ message: "Course not found" });
     }
 
-    if (course.instructor.toString() !== req.user.id) {
+    if (course.instructor.toString() !== req.user.id.toString()) {
+      console.log(req.user.id.toString());
+      console.log(course.instructor.toString());
       return res.status(403).json({ message: "Forbidden" });
+    }
+
+    // Check if course has enrolled students
+    const enrollmentCount = await Enrollment.countDocuments({ course: courseId });
+    if (enrollmentCount > 0) {
+      return res.status(409).json({ 
+        message: "Cannot delete course with enrolled students. Please contact admin for assistance.",
+        enrolledStudents: enrollmentCount
+      });
     }
 
     // 1️⃣ Fetch all lessons belonging to this course
@@ -177,12 +188,13 @@ export const getCurriculum = async (req, res) => {
       return res.status(404).json({ message: "Course not found" });
     }
 
-    const userId = req.user?.id;
+    const userId = req.user?.id.toString();
     const isOwner = course.instructor.toString() === userId;
-    const isAdmin = req.user?.role === "admin";
+
+    
 
     // If course is unpublished, only owner or admin can view it
-    if (!course.published && !isOwner && !isAdmin) {
+    if (!course.published && !isOwner ) {
       return res.status(403).json({ message: "Course not published" });
     }
 
@@ -241,7 +253,7 @@ export const getEditCourseData = async(req,res)=>{
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
     } 
-    if (course.instructor._id.toString() !== req.user.id) {
+    if (course.instructor._id.toString() !== req.user.id.toString()) {
       return res.status(403).json({ message: "Forbidden" });
     }
     return res.status(200).json({ course });

@@ -18,11 +18,12 @@ export default function MyCourses() {
   if (!confirm("Are you sure you want to delete this course?")) return;
 
   try {
-    await api.delete(`/course/delete-course/${id}`);
+   let res = await api.delete(`/course/delete-course/${id}`);
     toast.success("Course deleted");
     loadCourses();
   } catch (err) {
-    toast.error("Failed to delete");
+    console.log(err?.response?.data);
+    toast.error(err?.response?.data?.message || "Failed to delete course  ");
   }
 };
 

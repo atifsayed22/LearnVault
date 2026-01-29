@@ -24,7 +24,7 @@ export default function Navbar() {
         {/* NAV LINKS */}
         <div className="flex items-center gap-6 text-gray-300 relative">
 
-          <Link to="/student/courses" className="hover:text-white transition">
+          <Link to="/student" className="hover:text-white transition">
             Browse
           </Link>
 
