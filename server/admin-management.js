@@ -14,8 +14,8 @@ const rl = readline.createInterface({
 const question = (query) => new Promise((resolve) => rl.question(query, resolve));
 
 const showMenu = () => {
-  console.log('\n╔════════════════════════════════════════╗');
-  console.log('║        Admin Management Menu            ║');
+ console.log('\n╔════════════════════════════════════════╗');
+  console.log('║        Admin Management Menu           ║');
   console.log('╠════════════════════════════════════════╣');
   console.log('║ 1. List all admins                     ║');
   console.log('║ 2. Create new admin                    ║');

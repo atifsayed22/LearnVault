@@ -339,21 +339,7 @@ POST   /api/payment/verify-payment     # Verify payment
 
 ---
 
-## 🚀 Deployment
 
-### Deploy Backend (Heroku)
-```bash
-cd server
-git push heroku main
-```
-
-### Deploy Frontend (Vercel)
-```bash
-cd frontend/vite-project
-vercel
-```
-
----
 
 ## 🤝 Contributing
 
