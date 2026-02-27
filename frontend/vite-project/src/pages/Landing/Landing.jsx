@@ -5,6 +5,7 @@ import Testimonials from "./components/Testimonials";
 import CTASection from "./components/CTASection";
 import SearchBar from "./components/SearchBar";
 import FeaturedCourses from "./components/FeaturedCourse";
+import Navbar from "./components/Navbar";
 import { Sun, Moon } from "lucide-react";
 
 export default function Landing() {
@@ -12,10 +13,13 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+      {/* Navbar */}
+      <Navbar />
+      
       {/* Theme Toggle Button */}
       <button
         onClick={toggleTheme}
-        className="fixed top-20 right-6 z-50 p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform"
+        className="fixed top-20 right-6 z-40 p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform"
         aria-label="Toggle theme"
       >
         {theme === 'light' ? (

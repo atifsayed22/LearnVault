@@ -1,13 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import api from "../../utils/axiosInstance.js";
 import { useAuth } from "../../context/AuthContext.jsx";
 
 export default function Auth() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [searchParams] = useSearchParams();
+  const [isLogin, setIsLogin] = useState(!searchParams.get("signup"));
   const navigate = useNavigate();
   const { login: loginContext } = useAuth();
+
+  // Handle signup query param changes
+  useEffect(() => {
+    if (searchParams.get("signup") === "true") {
+      setIsLogin(false);
+    }
+  }, [searchParams]);
 
   const {
     register,
