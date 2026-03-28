@@ -176,7 +176,7 @@ PUT    /api/admin/instructors/:id/reject   # Reject instructor
 GET    /api/admin/applications/pending     # Pending applications
 GET    /api/admin/students                 # List students
 GET    /api/admin/courses                  # List courses
-PUT    /api/admin/users/:id/deactivate     # Deactivate user
+DELETE    /api/admin/users/:id/deactivate     # Delete user(student)
 ```
 
 ---
@@ -187,7 +187,8 @@ PUT    /api/admin/users/:id/deactivate     # Deactivate user
 - ✅ Password Hashing (bcryptjs)
 - ✅ Role-Based Access Control (RBAC)
 - ✅ Protected Routes
-- ✅ Email Verification
+- ✅ AWS S3 pre-signed url 
+- ✅ Secure Video Playback 
 - ✅ Secure Payment Integration (Razorpay)
 
 ---
@@ -214,7 +215,7 @@ PUT    /api/admin/users/:id/deactivate     # Deactivate user
 - Platform monitoring
 - Content management
 - Analytics dashboard
-- System health checks
+
 
 ---
 

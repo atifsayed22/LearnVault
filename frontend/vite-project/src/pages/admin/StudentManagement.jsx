@@ -25,6 +25,18 @@ const StudentManagement = () => {
       setLoading(false);
     }
   };
+  const deleteStudent = async (studentId)=>{
+    const ok = window.confirm("Are you sure you want to delete this student? This action cannot be undone.");
+    if(!ok  ) return;
+    try {
+      await axiosInstance.delete(`/admin/users/${studentId}/deactivate`);
+      alert("Student deleted successfully");
+      fetchStudents();
+    } catch (err) {
+      console.error("Error deleting student:", err);
+      alert(err.response?.data?.message || "Failed to delete student");
+    }
+  }
 
   const filteredStudents = students.filter((student) =>
     student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -90,17 +102,25 @@ const StudentManagement = () => {
                   <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
                     Joined
                   </th>
+                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {filteredStudents.map((student) => (
                   <tr key={student._id} className="border-b border-gray-200 hover:bg-gray-50">
                     <td className="px-6 py-4">
+                      
                       <p className="font-medium text-gray-900">{student.name}</p>
+                   
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">{student.email}</td>
                     <td className="px-6 py-4 text-sm text-gray-600">
                       {new Date(student.createdAt).toLocaleDateString()}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-600">
+                     <button onClick={() => deleteStudent(student._id)} className="text-blue-600 hover:underline">Delete user</button>  
                     </td>
                   </tr>
                 ))}

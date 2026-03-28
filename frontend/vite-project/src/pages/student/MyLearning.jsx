@@ -64,7 +64,11 @@ export default function MyLearning() {
           >
             {/* Thumbnail placeholder */}
             <div className="h-40 bg-black/30 rounded-lg mb-4 flex items-center justify-center text-gray-500">
-              Course Preview
+              <img
+                  src={course.thumbnail}
+                  alt={course.title}
+                  className="w-full h-full object-cover"
+                />
             </div>
 
             <h2 className="text-lg font-semibold mb-1">

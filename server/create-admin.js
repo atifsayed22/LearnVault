@@ -8,13 +8,13 @@ dotenv.config();
 const createAdmin = async () => {
   try {
     // Connect to MongoDB
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect("mongodb+srv://sayedatif4321_db_user:vautLearn@cluster0.sw6bha9.mongodb.net/?appName=Cluster0");
     console.log('✓ Connected to MongoDB');
 
     // Admin credentials
     const adminData = {
       name: 'Super Admin',
-      email: 'admin@learnavault.com',
+      email: 'admin2@learnavault.com',
       password: 'admin@123',
       role: 'admin',
     };

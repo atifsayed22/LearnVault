@@ -36,6 +36,6 @@ router.get("/students", getStudents);
 router.get("/courses", getAllCourses);
 
 // User Management
-router.put("/users/:id/deactivate", deactivateUser);
+router.delete("/users/:id/deactivate", deactivateUser);
 
 export default router;

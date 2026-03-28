@@ -26,13 +26,12 @@ export default function Auth() {
 
   const onSubmit = async (data) => {
     const endpoint = isLogin ? "/auth/login" : "/auth/register";
-
+    const payload = isLogin ? data : {...data, role:"student"};
     try {
-      const res = await api.post(endpoint, data);
+      const res = await api.post(endpoint, payload);
 
       if (isLogin) {
-        console.log(res.data.user);
-        console.log(res.data.token);
+        
         loginContext(res.data.user, res.data.token);
         const role = res.data.user.role;
 
@@ -156,22 +155,7 @@ export default function Auth() {
             )}
           </div>
 
-          {/* Role Dropdown (Register Only) */}
-          {!isLogin && (
-            <select
-              className="w-full px-4 py-3 bg-white/10 border border-white/20 
-              rounded-xl text-white focus:ring-2 focus:ring-purple-500 outline-none"
-              {...register("role", { required: true })}
-            >
-              <option value="student" className="text-black">
-                Student
-              </option>
-              <option value="instructor" className="text-black">
-                Instructor
-              </option>
-            </select>
-          )}
-
+        
           {/* Submit Button */}
           <button
             type="submit"

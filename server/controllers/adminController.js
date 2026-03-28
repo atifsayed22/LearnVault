@@ -172,7 +172,7 @@ export const getDashboardStats = async (req, res) => {
 export const getStudents = async (req, res) => {
   try {
     const students = await User.find({ role: "student" }).select("-password");
-
+    console.log(students);
     res.status(200).json({
       message: "Students fetched successfully",
       total: students.length,
@@ -202,10 +202,9 @@ export const getAllCourses = async (req, res) => {
 export const deactivateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await User.findByIdAndUpdate(
+    const user = await User.findOneAndDelete(
       id,
-      { isActive: false },
-      { new: true }
+      
     ).select("-password");
 
     if (!user) {

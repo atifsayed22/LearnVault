@@ -21,7 +21,7 @@ const createAdminInteractive = async () => {
 
     // Connect to MongoDB
     console.log('🔄 Connecting to MongoDB...');
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect("mongodb+srv://sayedatif4321_db_user:vautLearn@cluster0.sw6bha9.mongodb.net/?appName=Cluster0");
     console.log('✅ Connected to MongoDB\n');
 
     // Get admin details from user
