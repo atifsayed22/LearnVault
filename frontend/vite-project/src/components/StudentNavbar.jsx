@@ -5,40 +5,45 @@ import { useState } from "react";
 export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
+  const [openProfile, setOpenProfile] = useState(false);
 
   const handleLogout = () => {
     logout();
+    setOpenProfile(false);
     navigate("/");
   };
 
+  const handleNavigate = (path) => {
+    setOpenProfile(false);
+    navigate(path);
+  };
+
   return (
-    <nav className="w-full bg-black/80 backdrop-blur-lg border-b border-white/10 px-6 py-4 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+    <nav className="w-full bg-black/80 backdrop-blur-lg border-b border-white/10 px-4 py-4 sticky top-0 z-50 sm:px-6">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
 
         {/* LOGO */}
-        <Link to="/" className="text-xl font-semibold text-white">
+        <Link
+          to="/"
+          onClick={() => {
+            setOpenProfile(false);
+          }}
+          className="text-lg font-semibold text-white sm:text-xl"
+        >
           LearnVault
         </Link>
 
-        {/* NAV LINKS */}
-        <div className="flex items-center gap-6 text-gray-300 relative">
+        <div className="flex items-center gap-3 sm:gap-6 text-gray-300 relative">
 
           <Link to="/student" className="hover:text-white transition">
             Browse
           </Link>
 
-          {user && (
-            <Link to="/student/my-learning" className="hover:text-white transition">
-              My Learning
-            </Link>
-          )}
-
           {/* AUTH SECTION */}
           {!user ? (
             <Link
               to="/auth"
-              className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition"
+              className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition text-sm sm:text-base"
             >
               Login
             </Link>
@@ -46,8 +51,8 @@ export default function Navbar() {
             <div className="relative">
               {/* PROFILE BUTTON */}
               <button
-                onClick={() => setOpen(!open)}
-                className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition"
+                onClick={() => setOpenProfile((prev) => !prev)}
+                className="flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2 rounded-lg hover:bg-white/10 transition"
               >
                 {/* Avatar */}
                 <div className="w-9 h-9 rounded-full bg-purple-600 flex items-center justify-center text-white font-semibold">
@@ -64,7 +69,7 @@ export default function Navbar() {
               </button>
 
               {/* DROPDOWN */}
-              {open && (
+              {openProfile && (
                 <div className="absolute right-0 mt-3 w-56 bg-black/90 backdrop-blur-xl border border-white/10 rounded-xl shadow-lg overflow-hidden">
                   
                   <div className="px-4 py-3 border-b border-white/10">
@@ -78,9 +83,16 @@ export default function Navbar() {
                   </div>
 
                   <div className="flex flex-col">
+                    <button
+                      onClick={() => handleNavigate("/student/my-learning")}
+                      className="px-4 py-2 text-left text-gray-300 hover:bg-white/10 transition"
+                    >
+                      My Learning
+                    </button>
+
                     {user.role === "instructor" && (
                       <button
-                        onClick={() => navigate("/instructor/dashboard")}
+                        onClick={() => handleNavigate("/instructor/dashboard")}
                         className="px-4 py-2 text-left text-gray-300 hover:bg-white/10 transition"
                       >
                         Instructor Dashboard

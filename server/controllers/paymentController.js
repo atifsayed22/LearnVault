@@ -10,6 +10,16 @@ export const createOrder = async (req, res) => {
 
         const course = await Course.findById(courseId).populate("instructor");
         if (!course) return res.status(404).json({ message: "Course not found" });
+        if (!course.instructor) {
+            return res.status(400).json({
+                message: "This course is currently unavailable for purchase"
+            });
+        }
+
+        const existingEnrollment = await Enrollment.findOne({ user: userId, course: courseId });
+        if (existingEnrollment) {
+            return res.status(409).json({ message: "You are already enrolled in this course" });
+        }
 
         const amount = course.price * 100; // convert to paise
 
@@ -58,6 +68,16 @@ export const verifyPayment = async (req, res) => {
         // 2️⃣ Fetch course
         const course = await Course.findById(courseId).populate("instructor");
         if (!course) return res.status(404).json({ message: "Course not found" });
+        if (!course.instructor) {
+            return res.status(400).json({
+                message: "Payment cannot be verified because course instructor is unavailable"
+            });
+        }
+
+        const existingEnrollment = await Enrollment.findOne({ user: userId, course: courseId });
+        if (existingEnrollment) {
+            return res.status(409).json({ message: "You are already enrolled in this course" });
+        }
 
         const price = course.price;
         const platformFee = price * 20 / 100; // 20% platform fee
@@ -71,12 +91,14 @@ export const verifyPayment = async (req, res) => {
             amountPaid: price,
             paymentId: razorpay_payment_id,
             orderId: razorpay_order_id,
-            platformFee,
+            platformFees: platformFee,
             instructorEarnings
         });
 
         // 4️⃣ Update course.student list
-        course.students.push(userId);
+        if (!course.students.some((studentId) => studentId.toString() === userId.toString())) {
+            course.students.push(userId);
+        }
         await course.save();
 
         // 5️⃣ Update instructor wallet

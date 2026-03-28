@@ -16,6 +16,7 @@ export default function CoursePlayer() {
   const [completion, setCompletion] = useState(null);
   const [allowed, setAllowed] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [mobileTab, setMobileTab] = useState("video");
 
   const lastSaveRef = useRef(0);
 
@@ -141,6 +142,7 @@ export default function CoursePlayer() {
   const handleLessonSelect = (lesson) => {
     setCurrentLesson(lesson);
     loadLessonVideo(lesson._id);
+    setMobileTab("video");
   };
 
   /* ---------------- UI STATES ---------------- */
@@ -166,41 +168,67 @@ export default function CoursePlayer() {
   return (
     <>
       {/* TOP BAR */}
-      <div className="w-full bg-black/80 border-b border-white/10 px-6 py-4 sticky top-0 z-40 flex justify-between items-center">
+      <div className="w-full bg-black/80 border-b border-white/10 px-4 sm:px-6 py-4 sticky top-16 z-40 flex justify-between items-center gap-3">
         <button onClick={() => navigate(-1)} className="text-gray-300 hover:text-white">
           ← Back
         </button>
-        <h1 className="text-lg font-semibold truncate max-w-md">
+        <h1 className="text-sm sm:text-lg font-semibold truncate max-w-[55vw] sm:max-w-md">
           {course.title}
         </h1>
         <div className="w-12" />
       </div>
 
-      <div className="flex bg-black min-h-screen text-white">
+      {/* MOBILE VIEW SWITCHER */}
+      <div className="md:hidden sticky top-[129px] z-30 bg-black/95 border-b border-white/10 px-4 py-3">
+        <div className="grid grid-cols-2 gap-2">
+          <button
+            onClick={() => setMobileTab("video")}
+            className={`rounded-lg py-2 text-sm font-medium transition ${
+              mobileTab === "video"
+                ? "bg-white text-black"
+                : "bg-white/10 text-gray-200 hover:bg-white/20"
+            }`}
+          >
+            Video
+          </button>
+          <button
+            onClick={() => setMobileTab("curriculum")}
+            className={`rounded-lg py-2 text-sm font-medium transition ${
+              mobileTab === "curriculum"
+                ? "bg-white text-black"
+                : "bg-white/10 text-gray-200 hover:bg-white/20"
+            }`}
+          >
+            Curriculum
+          </button>
+        </div>
+      </div>
+
+      <div className="flex bg-black min-h-[calc(100vh-64px)] text-white">
         {/* SIDEBAR */}
-        <Sidebar
-          course={course}
-          currentLesson={currentLesson}
-          progressMap={progressMap}
-          completion={completion}
-          onLessonSelect={handleLessonSelect}
-        />
+        <div className={`w-full md:w-auto ${mobileTab === "curriculum" ? "block" : "hidden"} md:block`}>
+          <Sidebar
+            course={course}
+            currentLesson={currentLesson}
+            progressMap={progressMap}
+            completion={completion}
+            onLessonSelect={handleLessonSelect}
+          />
+        </div>
 
         {/* PLAYER */}
-        <div className="flex-1 p-6">
-          <h1 className="text-2xl font-bold mb-4">
-            {currentLesson?.title}
-          </h1>
+        <div className={`flex-1 p-4 sm:p-6 ${mobileTab === "video" ? "block" : "hidden"} md:block`}>
+          <h1 className="text-xl sm:text-2xl font-bold mb-4">{currentLesson?.title}</h1>
 
-          <VideoPlayer
-            url={videoUrl}
-            initialTime={progressMap[currentLesson?._id]?.lastWatchedTime || 0}
-            onTimeUpdate={handleTimeUpdate}
-          />
+          <div className="w-full overflow-hidden rounded-xl border border-white/10 bg-black">
+            <VideoPlayer
+              url={videoUrl}
+              initialTime={progressMap[currentLesson?._id]?.lastWatchedTime || 0}
+              onTimeUpdate={handleTimeUpdate}
+            />
+          </div>
 
-          <p className="text-gray-300 mt-4">
-            {currentLesson?.description || ""}
-          </p>
+          <p className="text-gray-300 mt-4 text-sm sm:text-base">{currentLesson?.description || ""}</p>
         </div>
       </div>
     </>

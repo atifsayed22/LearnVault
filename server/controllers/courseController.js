@@ -132,14 +132,17 @@ export const deleteCourse = async (req, res) => {
 
 export const getAllCourses = async (req, res) => {
   try {
-    const courses = await Course.find({ published: true }).populate(
+    const courses = await Course.find({
+      published: true,
+      instructor: { $exists: true, $ne: null },
+    }).populate(
       "instructor",
       "name email"
     );
-    if (courses.length === 0) {
-      return res.status(404).json({ message: "No courses found" });
-    }
-    return res.status(200).json({ courses });
+
+    const validCourses = courses.filter((course) => course.instructor);
+
+    return res.status(200).json({ courses: validCourses });
   } catch (err) {
     return res.status(500).json({ message: "Server error" });
   }
@@ -159,10 +162,10 @@ export const getCourseById = async (req, res) => {
           options: { sort: { order: 1 } },
         }
       });;
-    if (!course || !course.published) {
+    if (!course || !course.published || !course.instructor) {
       return res.status(404).json({ message: "Course not found" });
     }
-    console.log(course)
+   
     return res.status(200).json({ course });
   } catch (err) {
     return res.status(500).json({ message: "Server error" });

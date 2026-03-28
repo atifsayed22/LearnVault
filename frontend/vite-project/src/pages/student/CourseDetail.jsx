@@ -87,7 +87,7 @@ export default function CourseDetails() {
       razorpay.open();
     } catch (err) {
       console.log(err);
-      toast.error("Unable to start payment");
+      toast.error(err.response?.data?.message || "Unable to start payment");
     } finally {
       setBuying(false);
     }

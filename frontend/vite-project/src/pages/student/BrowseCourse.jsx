@@ -16,7 +16,10 @@ export default function BrowseCourses() {
   const loadCourses = async () => {
     try {
       const res = await api.get("/course");
-      setCourses(res.data.courses);
+      const safeCourses = (res.data.courses || []).filter(
+        (c) => c?._id && c?.instructor,
+      );
+      setCourses(safeCourses);
     } catch (err) {
       toast.error("Failed to load courses");
     } finally {

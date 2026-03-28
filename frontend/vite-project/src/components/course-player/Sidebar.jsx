@@ -6,7 +6,7 @@ export default function Sidebar({ course, currentLesson, onLessonSelect, complet
   const total = completion?.totalLessons || 0;
 
   return (
-    <div className="w-80 bg-white/5 border-r border-white/10 p-4 overflow-y-auto h-screen">
+    <div className="w-full md:w-80 bg-white/5 border-r border-white/10 p-4 overflow-y-auto h-[calc(100vh-129px)] md:h-[calc(100vh-64px)]">
 
       <h2 className="text-xl font-bold mb-4">{course.title}</h2>
 
