@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import api from "../../../utils/axiosInstance";
 import toast from "react-hot-toast";
+import { COURSE_CATEGORIES } from "../../../constants/courseCategories";
 
 export default function StepBasicInfo({ next, setCourse }) {
 
@@ -46,11 +47,16 @@ export default function StepBasicInfo({ next, setCourse }) {
         {...register("description", { required: true })}
       />
 
-      <input
-        placeholder="Category"
-        className="input"
-        {...register("category", { required: true })}
-      />
+      <select className="input" defaultValue="" {...register("category", { required: true })}>
+        <option value="" disabled>
+          Select Category
+        </option>
+        {COURSE_CATEGORIES.map((item) => (
+          <option key={item} value={item}>
+            {item}
+          </option>
+        ))}
+      </select>
 
       <input
         placeholder="Thumbnail URL"

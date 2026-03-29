@@ -13,7 +13,7 @@ export default function EditPreview({ course, onPublished }) {
       await api.patch(`/course/publish-course/${course._id}`);
       toast.success("Course published");
       if (onPublished) onPublished();
-      navigate("/instructor/dashboard");
+      navigate("/instructor/home");
     } catch (err) {
       console.log(err);
       toast.error("Failed to publish");
