@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import api from "../../../utils/axiosInstance";
 import toast from "react-hot-toast";
+import { COURSE_CATEGORIES } from "../../../constants/courseCategories";
 
 export default function EditBasicInfo({ course, onUpdated }) {
   const { register, handleSubmit, reset } = useForm({
@@ -44,7 +45,16 @@ export default function EditBasicInfo({ course, onUpdated }) {
       <input {...register("title", { required: true })} className="input mb-3" placeholder="Course title" />
       <input {...register("subtitle")} className="input mb-3" placeholder="Subtitle (optional)" />
       <textarea {...register("description", { required: true })} className="input mb-3" placeholder="Description" />
-      <input {...register("category", { required: true })} className="input mb-3" placeholder="Category" />
+      <select {...register("category", { required: true })} className="input mb-3">
+        <option value="" disabled>
+          Select Category
+        </option>
+        {COURSE_CATEGORIES.map((item) => (
+          <option key={item} value={item}>
+            {item}
+          </option>
+        ))}
+      </select>
       <input {...register("thumbnail")} className="input mb-3" placeholder="Thumbnail URL" />
       <input type="number" {...register("price", { valueAsNumber: true })} className="input mb-3" placeholder="Price" />
 

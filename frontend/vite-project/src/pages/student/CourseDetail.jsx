@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../../utils/axiosInstance";
 import toast from "react-hot-toast";
 
 export default function CourseDetails() {
   const { courseId } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [course, setCourse] = useState(null);
   const [enrolled, setEnrolled] = useState(false);
@@ -104,20 +103,57 @@ export default function CourseDetails() {
 
   return (
     <div className="bg-black min-h-screen text-white">
-      {/* HEADER */}
-      <header className="bg-gradient-to-b from-gray-900 to-black py-12 px-6 md:px-16">
-        <h1 className="text-4xl font-bold mb-3">{course.title}</h1>
-        <p className="text-gray-300 text-lg mb-4">{course.description}</p>
+      <main className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 py-10">
+        {/* HERO */}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-10 items-start mb-10">
+          <div className="md:col-span-2">
+            <p className="text-sm uppercase tracking-wider text-purple-300 mb-3">
+              {course.category}
+            </p>
+            <h1 className="text-4xl font-bold mb-3 leading-tight">{course.title}</h1>
+            <p className="text-gray-300 text-lg mb-5">{course.description}</p>
+            <p className="text-purple-300 font-semibold text-lg">
+              Instructor: {course.instructor?.name}
+            </p>
+          </div>
 
-        <p className="text-purple-300 font-semibold text-lg">
-          Instructor: {course.instructor?.name}
-        </p>
-      </header>
+          <aside className="bg-white/10 p-6 rounded-xl border border-white/20 h-fit md:sticky md:top-20">
+            <div className="h-48 bg-black/20 rounded-lg mb-4 overflow-hidden">
+              <img
+                src={course.thumbnail}
+                alt={course.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
 
-      {/* BODY */}
-      <main className="grid grid-cols-1 md:grid-cols-3 gap-12 p-10 md:px-16">
-        {/* LEFT CONTENT */}
-        <section className="md:col-span-2 space-y-10">
+            <p className="text-3xl font-bold mb-4">₹{course.price}</p>
+
+            {enrolled ? (
+              <button
+                className="btn-primary bg-green-600 hover:bg-green-700 w-full"
+                onClick={() => navigate(`/student/course/${courseId}/learn`)}
+              >
+                Go to Course
+              </button>
+            ) : (
+              <button
+                className="btn-primary w-full"
+                disabled={buying}
+                onClick={handleEnroll}
+              >
+                {buying ? "Processing..." : "Enroll Now"}
+              </button>
+            )}
+
+            <div className="text-gray-400 text-sm mt-3 text-center">
+              Lifetime access • Certificate • 30-day refund
+            </div>
+          </aside>
+        </section>
+
+        {/* BODY */}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="md:col-span-2 space-y-10">
           {/* WHAT YOU'LL LEARN */}
           <div className="bg-white/5 p-6 rounded-xl border border-white/10">
             <h2 className="text-2xl font-bold mb-4">What you'll learn</h2>
@@ -161,43 +197,35 @@ export default function CourseDetails() {
               <p className="text-gray-400">No sections added yet.</p>
             )}
           </div>
+
+            <div className="md:hidden bg-white/10 p-6 rounded-xl border border-white/20 h-fit">
+              <div className="h-40 bg-black/20 rounded-lg mb-4 overflow-hidden">
+                <img
+                  src={course.thumbnail}
+                  alt={course.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <p className="text-3xl font-bold mb-4">₹{course.price}</p>
+              {enrolled ? (
+                <button
+                  className="btn-primary bg-green-600 hover:bg-green-700 w-full"
+                  onClick={() => navigate(`/student/course/${courseId}/learn`)}
+                >
+                  Go to Course
+                </button>
+              ) : (
+                <button
+                  className="btn-primary w-full"
+                  disabled={buying}
+                  onClick={handleEnroll}
+                >
+                  {buying ? "Processing..." : "Enroll Now"}
+                </button>
+              )}
+            </div>
+          </div>
         </section>
-
-        {/* ASIDE */}
-        <aside className="bg-white/10 p-6 rounded-xl border border-white/20 h-fit sticky top-20">
-          {/* Thumbnail */}
-          <div className="h-40 bg-black/20 rounded-lg mb-4 overflow-hidden">
-            <img
-              src={course.thumbnail}
-              alt={course.title}
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          <p className="text-3xl font-bold mb-4">₹{course.price}</p>
-
-          {/* ENROLL BUTTON / ALREADY ENROLLED */}
-          {enrolled ? (
-            <button
-              className="btn-primary bg-green-600 hover:bg-green-700 w-full"
-              onClick={() => navigate(`/student/course/${courseId}/learn`)}
-            >
-              Go to Course
-            </button>
-          ) : (
-            <button
-              className="btn-primary w-full"
-              disabled={buying}
-              onClick={handleEnroll}
-            >
-              {buying ? "Processing..." : "Enroll Now"}
-            </button>
-          )}
-
-          <div className="text-gray-400 text-sm mt-3 text-center">
-            Lifetime access • Certificate • 30-day refund
-          </div>
-        </aside>
       </main>
     </div>
   );
