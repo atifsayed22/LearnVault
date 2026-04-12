@@ -17,6 +17,7 @@ export default function CoursePlayer() {
   const [allowed, setAllowed] = useState(false);
   const [loading, setLoading] = useState(true);
   const [mobileTab, setMobileTab] = useState("video");
+  const [certificateUnlocked, setCertificateUnlocked] = useState(false);
 
   const lastSaveRef = useRef(0);
 
@@ -145,6 +146,13 @@ export default function CoursePlayer() {
     setMobileTab("video");
   };
 
+  useEffect(() => {
+    if (completion?.completionPercentage === 100 && !certificateUnlocked) {
+      toast.success("Course completed. Your certificate is now available.");
+      setCertificateUnlocked(true);
+    }
+  }, [completion?.completionPercentage, certificateUnlocked]);
+
   /* ---------------- UI STATES ---------------- */
   if (loading) {
     return <div className="text-white p-10">Loading...</div>;
@@ -175,7 +183,16 @@ export default function CoursePlayer() {
         <h1 className="text-sm sm:text-lg font-semibold truncate max-w-[55vw] sm:max-w-md">
           {course.title}
         </h1>
-        <div className="w-12" />
+        {completion?.completionPercentage === 100 ? (
+          <button
+            className="text-xs sm:text-sm px-3 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-semibold"
+            onClick={() => navigate(`/student/course/${courseId}/certificate`)}
+          >
+            Certificate
+          </button>
+        ) : (
+          <div className="w-12" />
+        )}
       </div>
 
       {/* MOBILE VIEW SWITCHER */}

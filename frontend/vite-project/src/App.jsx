@@ -28,6 +28,7 @@ import BrowseCourses from "./pages/student/BrowseCourse.jsx";
 import CourseDetails from "./pages/student/CourseDetail.jsx";
 import CoursePlayer from "./pages/student/CoursePlayer.jsx";
 import MyLearning from "./pages/student/MyLearning.jsx";
+import CourseCertificate from "./pages/student/CourseCertificate.jsx";
 
 /* ADMIN PAGES */
 import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
@@ -85,6 +86,7 @@ const App = () => {
           <Route index element={<BrowseCourses />} />
           <Route path="course/:courseId" element={<CourseDetails />} />
           <Route path="course/:courseId/learn/*" element={<CoursePlayer />} />
+          <Route path="course/:courseId/certificate" element={<CourseCertificate />} />
           <Route path="my-learning" element={<MyLearning />} />
         </Route>  
 

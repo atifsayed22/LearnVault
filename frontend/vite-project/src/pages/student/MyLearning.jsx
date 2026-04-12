@@ -103,6 +103,15 @@ export default function MyLearning() {
             >
               Continue Learning
             </button>
+
+            {progressMap[course._id]?.completionPercentage === 100 && (
+              <button
+                className="mt-3 w-full rounded-lg border border-emerald-400/60 px-4 py-2 text-sm font-semibold text-emerald-300 hover:bg-emerald-500/10"
+                onClick={() => navigate(`/student/course/${course._id}/certificate`)}
+              >
+                View Certificate
+              </button>
+            )}
           </div>
         ))}
       </div>
