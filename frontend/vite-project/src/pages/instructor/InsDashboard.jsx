@@ -3,14 +3,14 @@ import DashboardCard from "../../components/instructor/DashboardCard";
 import CoursesSummary from "../../components/instructor/CoursesSummary";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 
+
 export default function InstructorHome() {
   const { user } = useAuth();
   const isVerified = user?.isVerified;
   const documentStatus = user?.documentStatus;
-
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-gray-200 p-10">
-
       <h1 className="text-3xl font-bold mb-10">Instructor Dashboard</h1>
 
       {/* Verification Status Alert */}
@@ -22,38 +22,28 @@ export default function InstructorHome() {
               Application Under Review
             </h2>
             <p className="text-yellow-200 mb-3">
-              Your instructor profile is currently under review by our admin team. We'll verify your credentials and documents within 1-3 business days.
+              Your instructor profile is currently under review by our admin
+              team. We'll verify your credentials and documents within 1-3
+              business days.
             </p>
             <p className="text-yellow-200 text-sm">
-              <strong>Status:</strong> {documentStatus === "pending" && "⏳ Pending Review"}
+              <strong>Status:</strong>{" "}
+              {documentStatus === "pending" && "⏳ Pending Review"}
               {documentStatus === "rejected" && "❌ Application Rejected"}
               {documentStatus === "approved" && "✅ Approved (Refreshing...)"}
             </p>
             <p className="text-yellow-200 text-sm mt-2">
-              You'll receive an email once your profile has been verified. Until then, you can't create courses.
+              You'll receive an email once your profile has been verified. Until
+              then, you can't create courses.
             </p>
           </div>
         </div>
       )}
 
       {/* Verified Status Alert */}
-      {isVerified && (
-        <div className="mb-8 p-6 bg-green-900/20 border border-green-700 rounded-lg flex items-start gap-4">
-          <CheckCircle2 className="w-6 h-6 text-green-400 flex-shrink-0 mt-1" />
-          <div>
-            <h2 className="text-lg font-semibold text-green-300 mb-1">
-              ✅ Profile Verified!
-            </h2>
-            <p className="text-green-200">
-              Your instructor profile has been verified. You're all set to start creating courses!
-            </p>
-          </div>
-        </div>
-      )}
-
+     
       {/* Dashboard Cards */}
       <div className="grid md:grid-cols-3 gap-6">
-
         {/* Create Course - Only if verified */}
         <DashboardCard
           title="Create New Course"
