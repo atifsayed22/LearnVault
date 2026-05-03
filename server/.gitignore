@@ -3,3 +3,4 @@ node_modules/
 ADMIN_SCRIPTS_README.md
 ADMIN_SETUP.MD
 admin-management.js
+temp/

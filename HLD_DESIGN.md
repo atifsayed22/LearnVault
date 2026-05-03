@@ -11,7 +11,7 @@
 
 ---
 
-## 2. System Architecture
+## 2. System Architecture (Layered View)
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -81,6 +81,124 @@
    │   Database       │
    └──────────────────┘
 ```
+
+---
+
+## 2.1 Component-Based HLD Diagram
+
+```
+╔═════════════════════════════════════════════════════════════════════════════╗
+║                      LEARNAVAULT COMPONENT ARCHITECTURE                     ║
+╚═════════════════════════════════════════════════════════════════════════════╝
+
+                          ┌──────────────────────────┐
+                          │   CLIENT TIER (FRONTEND) │
+                          └────────────┬─────────────┘
+                                       │
+                  ┌────────────────────┼────────────────────┐
+                  │                    │                    │
+         ┌────────▼────────┐  ┌───────▼────────┐  ┌────────▼────────┐
+         │  Student Portal │  │ Instructor Hub │  │   Admin Panel   │
+         │                 │  │                │  │                 │
+         │ • Browse Courses│  │ • Create Course│  │ • Dashboard     │
+         │ • Course Player │  │ • Manage Lesson│ │ • User Mgmt     │
+         │ • My Learning   │  │ • Earnings     │  │ • Verification  │
+         │ • Certificates  │  │ • Analytics    │  │ • Moderation    │
+         └────────┬────────┘  └────────┬───────┘  └────────┬────────┘
+                  │                    │                    │
+                  └────────────────────┼────────────────────┘
+                                       │ (HTTP/HTTPS + JWT)
+                          ┌────────────▼─────────────┐
+                          │   EXPRESS API GATEWAY    │
+                          │  ┌────────────────────┐  │
+                          │  │ • CORS              │  │
+                          │  │ • Auth Middleware   │  │
+                          │  │ • Rate Limiter      │  │
+                          │  │ • Error Handler     │  │
+                          │  └────────────────────┘  │
+                          └────────────┬─────────────┘
+                                       │
+        ┌──────────────────────────────┼──────────────────────────────┐
+        │                              │                              │
+        ▼                              ▼                              ▼
+   ┌────────────┐              ┌──────────────┐             ┌────────────┐
+   │   AUTH     │              │  CORE DOMAIN │             │ INTEGRATION│
+   │ COMPONENT  │              │  COMPONENTS  │             │ COMPONENTS │
+   ├────────────┤              ├──────────────┤             ├────────────┤
+   │            │              │              │             │            │
+   │ • Register │              │ ┌──────────┐ │             │ ┌────────┐ │
+   │ • Login    │◄────┬────────┤ │ COURSE   │ │◄────────────┤ │ PAYMENT│ │
+   │ • Verify   │     │        │ │ COMPONENT│ │             │ │SERVICE │ │
+   │ • JWT Mgmt │     │        │ └──────────┘ │             │ └────────┘ │
+   │ • Roles    │     │        │              │             │            │
+   │            │     │        │ ┌──────────┐ │             │ ┌────────┐ │
+   └────────────┘     │        │ │ LESSON   │ │             │ │ STORAGE│ │
+                      │        │ │ COMPONENT│◄┼─────────────┤ │SERVICE │ │
+                      │        │ └──────────┘ │             │ │(S3)    │ │
+                      │        │              │             │ └────────┘ │
+                      │        │ ┌──────────┐ │             │            │
+                      │        │ │ENROLLMENT│ │             │ ┌────────┐ │
+                      │◄───────┤ │COMPONENT │◄┼─────────────┤ │ EMAIL  │ │
+                      │        │ └──────────┘ │             │ │SERVICE │ │
+                      │        │              │             │ └────────┘ │
+                      │        │ ┌──────────┐ │             │            │
+                      │        │ │PROGRESS  │ │             └────────────┘
+                      │        │ │COMPONENT │ │
+                      │        │ └──────────┘ │
+                      │        │              │
+                      │        │ ┌──────────┐ │
+                      │        │ │ANALYTICS │ │
+                      │        │ │COMPONENT │ │
+                      │        │ └──────────┘ │
+                      │        │              │
+                      │        │ ┌──────────┐ │
+                      │        │ │  ADMIN   │ │
+                      │        │ │COMPONENT │ │
+                      │        │ └──────────┘ │
+                      │        └──────────────┘
+                      │               │
+                      └───────┬───────┘
+                              │
+                ┌─────────────▼──────────────┐
+                │   PERSISTENCE LAYER        │
+                ├────────────────────────────┤
+                │                            │
+                │  ┌──────────────────────┐  │
+                │  │  DATABASE MODELS     │  │
+                │  │  ┌────────────────┐  │  │
+                │  │  │ • Users         │  │  │
+                │  │  │ • Courses       │  │  │
+                │  │  │ • Enrollments   │  │  │
+                │  │  │ • LessonProgress│  │  │
+                │  │  │ • Wallets       │  │  │
+                │  │  │ • Sections      │  │  │
+                │  │  │ • Lessons       │  │  │
+                │  │  └────────────────┘  │  │
+                │  └──────────────────────┘  │
+                └────────────┬─────────────┘
+                             │
+                  ┌──────────▼──────────┐
+                  │   MONGODB DATABASE  │
+                  │  (Production DB)    │
+                  └─────────────────────┘
+```
+
+---
+
+## 2.2 Component Interaction Matrix
+
+| Component | Depends On | Used By | Purpose |
+|-----------|-----------|---------|---------|
+| **Auth** | User Model | All Controllers | JWT authentication, role verification |
+| **Course** | User, Section, Lesson | Enrollment, Analytics | Course CRUD, publishing |
+| **Lesson** | Section, Course | Progress, Course Player | Lesson management, video serving |
+| **Enrollment** | User, Course, Payment | Progress, Analytics | Student enrollment tracking |
+| **Payment** | Enrollment, Wallet | External: Razorpay | Payment processing, fee distribution |
+| **Progress** | User, Lesson, Course | Analytics | Track student learning |
+| **Analytics** | Course, Progress, Enrollment | Admin Dashboard | Generate reports & insights |
+| **Admin** | User, Course, Enrollment | Dashboard | User management, moderation |
+| **Storage** | Lesson, Course | All Components | File upload/retrieval (S3) |
+| **Email** | User, Enrollment, Progress | All Services | Transactional notifications |
 
 ---
 
