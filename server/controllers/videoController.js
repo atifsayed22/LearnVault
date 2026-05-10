@@ -3,7 +3,7 @@ import { PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import Lesson from "../models/lesson.js";
 import Enrollment from "../models/enrolment.js";
-import { videoQueue } from "../queues/VideoQueue.js";
+import { videoQueue } from "../queues/videoQueue.js";
 
 import crypto from "crypto";
 
