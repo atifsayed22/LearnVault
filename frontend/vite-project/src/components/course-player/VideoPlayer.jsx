@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import Hls from "hls.js";
 
 export default function VideoPlayer({
   url,
@@ -6,6 +7,7 @@ export default function VideoPlayer({
   onTimeUpdate,
 }) {
   const videoRef = useRef(null);
+  const hlsRef = useRef(null);
 
   /* ---------------- RESUME PLAYBACK ---------------- */
   useEffect(() => {
@@ -26,6 +28,44 @@ export default function VideoPlayer({
     };
   }, [initialTime, url]);
 
+  /* ---------------- HLS ATTACHMENT ---------------- */
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !url) return;
+
+    if (hlsRef.current) {
+      hlsRef.current.destroy();
+      hlsRef.current = null;
+    }
+
+    if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = url;
+      return;
+    }
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hlsRef.current = hls;
+      hls.loadSource(url);
+      hls.attachMedia(video);
+
+      hls.on(Hls.Events.ERROR, (_, data) => {
+        if (data.fatal) {
+          console.error("HLS fatal error:", data);
+        }
+      });
+    } else {
+      video.src = url;
+    }
+
+    return () => {
+      if (hlsRef.current) {
+        hlsRef.current.destroy();
+        hlsRef.current = null;
+      }
+    };
+  }, [url]);
+
   /* ---------------- TRACK PROGRESS ---------------- */
   const handleTimeUpdate = () => {
     if (!videoRef.current || !onTimeUpdate) return;
@@ -42,7 +82,6 @@ export default function VideoPlayer({
   return (
     <video
       ref={videoRef}
-      src={url}
       controls
       onTimeUpdate={handleTimeUpdate}
       className="w-full rounded-xl border border-white/10 bg-black"

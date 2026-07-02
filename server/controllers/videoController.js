@@ -76,21 +76,22 @@ export const getPlaybackUrl = async (req, res) => {
         .json({ message: "You are not enrolled in this course" });
     }
 
-    if (!lesson.video || !lesson.video.key) {
+    const playbackKey = lesson.video?.hlsPath || lesson.video?.key;
+
+    if (!playbackKey) {
       return res
         .status(400)
         .json({ message: "No video found for this lesson" });
     }
 
-    // Generate signed playback URL
-    const getCMD = new GetObjectCommand({
-      Bucket: process.env.AWS_BUCKET_NAME,
-      Key: lesson.video.key,
+    // Generate signed playback URL for HLS manifest or fallback MP4
+   const playbackUrl = `${process.env.CLOUDFRONT_DOMAIN}/${playbackKey}`;
+
+    return res.json({
+      playbackUrl,
+      playbackKey,
+      isHls: Boolean(lesson.video?.hlsPath),
     });
-
-    const playbackUrl = await getSignedUrl(s3, getCMD, { expiresIn: 3600 });
-
-    return res.json({ playbackUrl });
   } catch (err) {
     console.error("Playback error:", err);
     return res.status(500).json({ message: "Server error during playback" });
@@ -124,10 +125,10 @@ export const completeUpload = async (req, res) => {
     };
     await lesson.save();
 
-    await videoQueue.add('process-video', { 
-    lessonId: lesson._id.toString(), // Use the real ID from the DB
-    fileKey: fileKey 
-});
+    await videoQueue.add("process-video", {
+      lessonId: lesson._id.toString(), // Use the real ID from the DB
+      fileKey: fileKey,
+    });
 
     return res.json({ message: "Upload completed", lessonId: lesson._id });
   } catch (err) {

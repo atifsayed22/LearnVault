@@ -98,6 +98,7 @@ export default function CoursePlayer() {
   const loadLessonVideo = async (lessonId) => {
     try {
       const res = await api.get(`/videos/get-playback-url/${lessonId}`);
+      console.log("Playback URL fetched:", res)
       setVideoUrl(res.data.playbackUrl);
     } catch (err) {
       console.error("Video load error:", err.response?.data || err.message);
